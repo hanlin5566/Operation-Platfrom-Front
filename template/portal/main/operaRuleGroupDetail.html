@@ -1,0 +1,144 @@
+<script id="tpl_OperaRuleGroupDetail" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+    	<h1><span class="pull-left">规则组配置</span>
+    	<a href="javascript:void(0)" deployStatus="SAVED"  class="default-btn pull-right">保存</a>
+        <a href="javascript:void(0)" id="sava-btn" style ="display:none" class="back-btn pull-right">继续保存</a>
+    	</h1>
+    </div>
+    <div class="pubOperaMsg-con">
+		<div class="filter">
+			<div class="row">
+				<input type="hidden" id="ruleGroupId"/>
+				<input type="hidden" class="clazzPath"/>
+				<div class="panel panel-default" style=" width: 96%;margin-left: 3%;">
+                  <div class="panel-body">
+                    <div class="col-md-3">
+						<label class="col-sm-2 control-label">编码：</label>
+						<input type="text" placeholder="规则组编码" class="groupKey"/>
+				    </div>
+                    <div class="col-md-3">
+						<label class="col-sm-2 control-label">名称：</label>
+						<input type="text" placeholder="规则组名称" class="groupName"/>
+				    </div>
+
+				    <div class="col-md-3">
+						<label class="col-sm-2 control-label">排序：</label>
+						<input type="text" placeholder="升序执行" class="sort"/>
+				    </div>
+                        <div class="col-md-3">
+                                <label class="col-sm-2 control-label">描述：</label>
+                                <input type="text" placeholder="规则组描述" class="groupDescribe"/>
+                        </div>
+                  </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">请选择规则库</div>
+                  <div class="panel-body ty-transfer" id="transfer">
+                   <div class="col-md-3">
+						<label class="col-sm-2 control-label">规则名称：</label>
+						<input type="text" placeholder="规则名称" class="ruleName"/>
+				    </div>
+
+                        <div class="col-md-3">
+                                <label class="col-sm-2 control-label">对应变量：</label>
+                                <input type="text" placeholder="规则变量" class="ruleKey"/>
+                        </div>
+
+                        <div class="col-md-3">
+                                      <select id="varGroupId" onmousedown="this.size=10" style="position: absolute;z-index: 1;width:180px;"
+                                      onblur="this.size=0" onchange="this.size=0">
+                                        <option value ="">--请选择取数接口名称--</option>
+                                    </select>
+                         </div>
+
+                        <div class="col-md-1">
+							<a href="javascript:void(0)" class="back-btn search-btn" style="" name="searchBtn">搜索</a>
+						</div>
+      <div class="fl ty-transfer-list transfer-list-left">
+        <div class="ty-transfer-list-head">
+            待选规则
+        </div>
+
+        <div class="ty-transfer-list-body">
+            <ul class="ty-tree-select" id="noSelect">
+
+            </ul>
+        </div>
+        <div class="ty-transfer-list-foot">
+            <div class="ty-tree-div">
+                <div class="tyc-check-blue fl">
+                    <input type="checkbox" class="transfer-all-check" id="tyc-check-blue">
+                    <span>
+                    </span>
+                </div>
+                <div class="ty-tree-text">
+                    全选
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fl ty-transfer-operation">
+        <span class="ty-transfer-btn-toright to-switch">
+        </span>
+        <span class="ty-transfer-btn-toleft to-switch">
+        </span>
+    </div>
+    <div class="fl ty-transfer-list transfer-list-right">
+        <div class="ty-transfer-list-head">
+            已选规则
+        </div>
+        <div class="ty-transfer-list-body">
+            <ul class="ty-tree-select" id="selected">
+
+            </ul>
+        </div>
+        <div class="ty-transfer-list-foot">
+            <div class="ty-tree-div">
+                <div class="tyc-check-blue">
+                    <input type="checkbox" class="transfer-all-check" id="tyc-check-blue">
+                    <span>
+                    </span>
+                </div>
+                <div class="ty-tree-text">
+                    全选
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearboth">
+    </div>
+
+                  </div>
+                </div>
+
+				 <div class="panel panel-default">
+                  <div class="panel-heading">根据选择的变量生成测试用例 <a href="javascript:void(0)" class="back-btn search-btn" style="" id="createTestDemo">生成</a></div>
+                  <div class="panel-body">
+                    <pre id="demoEditor" style="height:200px;margin-left: 10px"></pre>
+                  </div>
+                </div>
+
+			</div>
+		</div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">Modal title</h2>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</script >

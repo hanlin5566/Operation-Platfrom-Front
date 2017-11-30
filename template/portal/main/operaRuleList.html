@@ -1,0 +1,49 @@
+<script id="tpl_OperaRuleList" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+		<h1>规则库管理</h1>
+	</div>
+	<div class="teach-admin">
+		<div class="admin-con">
+			<div class="filter">
+				<p>筛选条件</p>
+				<div class="container">
+					<div class="row">
+					    <div class="col-md-3">
+							 <input type="text" placeholder="请输入对应变量" id="ruleKey" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入规则名称" id="ruleName" maxlength="40"/>
+						</div>
+                        <div class="col-md-3">
+							 <input type="text" placeholder="请输入规则描述" id="ruleDescribe" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+                                 <select id="ruleType">
+                                        <option value ="0">--请选择规则类型--</option>
+                                        <option value ="1">拒绝类规则</option>
+                                        <option value ="2">加黑类规则</option>
+                                    </select>
+                        </div>
+						<div class="col-md-1">
+							<a href="#" class="default-btn search-btn" style=""
+								name="searchBtn">搜索</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="kebiao-con">
+				<div id="toolbar">
+					<button id="remove" class="btn btn-danger" disabled="">
+						<i class="iconfont icon-close"></i> 删除
+					</button>
+					<a class="btn btn-success tc add"> <i class="iconfont icon-add"></i>
+						新增
+					</a>
+				</div>
+				<table id="tb_rule_list" class="evaluate-table"></table>
+			</div>
+		</div>
+	</div>
+</div>
+</script>

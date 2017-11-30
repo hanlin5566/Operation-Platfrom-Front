@@ -1,0 +1,39 @@
+<script id="tpl_operaVarGroupList" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+		<h1>变量来源管理</h1>
+	</div>
+	<div class="teach-admin">
+		<div class="admin-con">
+			<div class="filter">
+				<p>筛选条件</p>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入数据商名称" id="groupName" maxlength="40"/>
+						</div>
+                        <div class="col-md-3">
+							 <input type="text" placeholder="请输入数据接口名称" id="description" maxlength="40"/>
+						</div>
+						<div class="col-md-1">
+							<a href="#" class="default-btn search-btn" style=""
+								name="searchBtn">搜索</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="kebiao-con">
+				<div id="toolbar">
+					<button id="remove" class="btn btn-danger" disabled="">
+						<i class="iconfont icon-close"></i> 删除
+					</button>
+					<a class="btn btn-success tc add"> <i class="iconfont icon-add"></i>
+						新增
+					</a>
+				</div>
+				<table id="tb_var_group" class="evaluate-table"></table>
+			</div>
+		</div>
+	</div>
+</div>
+</script>

@@ -1,0 +1,56 @@
+<script id="tpl_operaRuleDetail" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+    	<h1><span class="pull-left">规则开发</span>
+    	<a href="javascript:void(0)"  class="default-btn pull-right">保存</a>
+    	</h1>
+    </div>
+    <div class="pubOperaMsg-con">
+		<div class="filter">
+			<div class="row">
+				<input type="hidden" id="id"/>
+				 <div class="panel panel-default" style=" width: 96%;margin-left: 3%;">
+                  <div class="panel-body">
+                    <div class="col-md-3">
+						<label class="col-sm-2 control-label">规则名称：</label>
+						<input type="text" placeholder="规则名称" class="ruleName"/>
+				    </div>
+
+                        <div class="col-md-3">
+                                <label class="col-sm-2 control-label">对应变量：</label>
+                                <input type="text" placeholder="规则变量" class="ruleKey"/>
+                                 </div>
+                        <div class="col-md-3">
+                                <label class="col-sm-2 control-label">规则分值：</label>
+                                <input type="text" placeholder="规则分值" class="score"/>
+                        </div>
+                        <div class="col-md-3">
+                                 <select id="ruleType">
+                                        <option value ="0">--请选择规则类型--</option>
+                                        <option value ="1">拒绝类规则</option>
+                                        <option value ="2">加黑类规则</option>
+                                    </select>
+                        </div>
+                         <div class="col-md-3">
+                                <label class="col-sm-2 control-label">描述：</label>
+
+                                <textarea type="text" style="width:400px;height:80px;overflow:scroll;resize:none;"  class="ruleDescribe"/></textarea>
+
+                        </div>
+
+                  </div>
+
+				 <div class="panel panel-default">
+                  <div class="panel-heading">请输入规则代码 <a href="javascript:void(0)" class="back-btn search-btn" style="" id="createTestDemo">初始化/重置</a></div>
+                  <div class="panel-body">
+                    <pre id="aceEditor" style="height: 600px;margin-left: 10px"></pre>
+                  </div>
+
+                </div>
+
+			</div>
+		</div>
+    </div>
+</div>
+
+</script >
