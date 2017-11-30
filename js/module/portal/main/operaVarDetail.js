@@ -102,6 +102,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		var data = {
 			"varId" : me.find("#varId").val(),
 			"varRetName" : varRetName,
+			"varRecName" : varRecName,
 			"description" : description,
             "varType" : varType,
 			"varDataType" : varDataType,
