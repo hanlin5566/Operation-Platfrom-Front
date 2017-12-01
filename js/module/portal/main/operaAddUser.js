@@ -79,6 +79,8 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		};
 		if(state == 'SAVED')
 		{
+		    //alert("save");
+            url = "/manageUser/addUserInfo";
             requestUtil.post(url, data).then(function(result) {
                 if (result.code == 200) {
                     me.find("#ruleGroupId").val(result.data);
@@ -115,8 +117,8 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
         }*/
         if(state == 'update')
         {
-            alert("up999");
-            url = "manageUser/updateUserInfo";
+            //alert("up999");
+            url = "/manageUser/updateUserInfo";
             requestUtil.post(url, data).then(function(result) {
                 if (result.code == 200) {
                     //me.find("#ruleGroupId").val(result.data);
@@ -135,11 +137,11 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		me.find('.default-btn').on('click', function() {
             var x =  me.parameter.useId;
 			if (x>0){
-			    alert("update");
+			    //alert("update");
                 var postStatus = "update";
                 me.postContent(postStatus);
             }else {
-			    alert("add");
+			    //alert("add");
                 //var postStatus = me.find('.default-btn').attr('deployStatus');
                 var postStatus = "SAVED";
                 me.postContent(postStatus);

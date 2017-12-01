@@ -169,6 +169,13 @@
                 layoutId: "layout_manage",
                 label: "用户管理",
             });
+            level2 = new Menu({
+                pageCode: "operaAddUser",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "添加用户"
+            });
+            level1.addChild(level2);
             nodeNavbar.addChild(level1);
             nodeHeader.addChild(nodeNavbar);
             level1 = new Menu({
