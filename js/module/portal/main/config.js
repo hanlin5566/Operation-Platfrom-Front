@@ -184,7 +184,14 @@
                 layoutId: "layout_manage",
                 label: "角色管理",
             });
+            level2 = new Menu({
+                pageCode: "operaAddRole",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "添加角色"
+            });
             nodeNavbar.addChild(level1);
+            level1.addChild(level2);
             nodeHeader.addChild(nodeNavbar);
             pageTree.addChild(nodeHeader);
             me.pageTree = pageTree;

@@ -35,7 +35,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
        // 	temp.state = state;
        // }
         var calendar = me.find("#calendar").val();
-        alert("时间:"+calendar);
+        //alert("时间:"+calendar);
         if(calendar.length > 0){
         	 temp.createTime = calendar;
         }
@@ -44,7 +44,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 	
 	// 页面初始化
     OperaRoleList.prototype.create = function() {
-    	alert("页面初始化！");
+    	//alert("页面初始化！");
 		var me = this;
 		me.renderMainContent("tpl_operaRoleList");
 		me.renderPage();
@@ -81,10 +81,9 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 						}
 					});
 				},
-				'click #varDetail': function (e, value, row, index) {
-					me.moveTo('operaVarDetail',{
-						'varId' : value,
-						'state': row.state.name
+				'click #operaAddRole': function (e, value, row, index) {
+					me.moveTo('operaAddRole',{
+						'roleId' : value
 					});
 				}
 		};
@@ -111,11 +110,11 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 		                      title: '创建时间'
 					      },
 					      {
-					    	  field: 'varId',
+					    	  field: 'id',
 		                      title: '操作',
 		                      events: operateEvents,
 		                      formatter: function (value, row, index) {
-		                    		  return '<a class="state-link" id="varDetail" varId="'+value+'">详情</a>';
+		                    		  return '<a class="state-link" id="operaAddRole" roleId="'+value+'">详情</a>';
 		                      }
 					      },
 					],
@@ -205,7 +204,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 		
 		me.find(".add").click(function() {
 			//页面跳转
-			me.moveTo('operaVarDetail');
+			me.moveTo('operaAddRole');
 		});
 	};
 	
