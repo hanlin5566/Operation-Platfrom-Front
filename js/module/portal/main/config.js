@@ -137,18 +137,36 @@
                 pageCode: "info_myinfo",
                 positionId: "layout_manage",
                 layoutId: "layout_manage",
-                label: "决策日志",
+                label: "决策列表",
             });
             nodeNavbar.addChild(level1);
-            nodeHeader.addChild(nodeNavbar);
-            level1 = new Menu({
-                pageCode: "system_manage_log",
+            level2 = new Menu({
+                pageCode: "decisionDetail",
                 positionId: "layout_manage",
                 layoutId: "layout_manage",
-                label: "访问日志",
+                label: "决策详情"
+            });
+            level1.addChild(level2);
+            nodeHeader.addChild(nodeNavbar);
+            level1 = new Menu({
+                pageCode: "staticQueryLog",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "访问统计",
             });
             nodeNavbar.addChild(level1);
             nodeHeader.addChild(nodeNavbar);
+
+            nodeHeader.addChild(nodeNavbar);
+            level1 = new Menu({
+                pageCode: "staticQueryList",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "访问列表",
+            });
+            nodeNavbar.addChild(level1);
+            nodeHeader.addChild(nodeNavbar);
+
             pageTree.addChild(nodeHeader);
             me.pageTree = pageTree;
             me.getPageMapping();

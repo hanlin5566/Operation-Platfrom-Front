@@ -1,0 +1,15 @@
+.e-container{
+    width: 47%; height: 300px; float: left;
+}
+.e-container-large{
+    width: 97%; height: 300px; float: left;
+}
+.e-container-big{
+    width: 57%; height: 300px; float: left;
+}
+.e-container-small{
+    width: 37%; height: 300px; float: left;
+}
+.e-mr{margin-left: 2%;margin-bottom: 10px}
+
+

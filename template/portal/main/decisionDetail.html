@@ -1,0 +1,86 @@
+<script id="tpl_decisionDetail" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+		<h1>进件决策详情</h1>
+	</div>
+	<div class="teach-admin">
+		<div class="admin-con">
+			<div class="filter">
+				<p>进件信息</p>
+				<div class="container">
+				<div class="row">
+						<div class="col-md-3">订单号：<span id="orderNo">47666655</span></div>
+                         <div class="col-md-3">决策结果：<span id="decisionResult">REJECT</span></div>
+					</div>
+					<div class="row">
+                         <div class="col-md-3">姓名：</div>
+						<div class="col-md-3">手机号：</div>
+						<div class="col-md-3">身份证：</div>
+						<div class="col-md-3">身份证：</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">订单号：</div>
+                         <div class="col-md-3">姓名：</div>
+						<div class="col-md-3">手机号：</div>
+						<div class="col-md-3">身份证：</div>
+					</div>
+				</div>
+			</div>
+			<div class="kebiao-con">
+                <div class="panel panel-default" ">
+                  <div class="panel-heading">规则集信息</div>
+                  <div class="panel-body" id="step"  style="height:140px;">
+                        <div class="hortree-wrapper">
+                          <div class="hortree-branch">
+                                <div class="hortree-entry">
+                                    <div class="hortree-label">进件强规则集</div>
+                                    <div class="hortree-label"><i class="icon-circle-ok" aria-hidden="true"></i>通过</div>
+                                    <div class="hortree-label">用时：3s</div>
+                                </div>
+                          </div>
+                          <div class="hortree-branch">
+                                <div class="hortree-entry">
+                                    <div class="hortree-label">外部数据强规则集</div>
+                                    <div class="hortree-label"><i class="glyphicon icon-circle-remove" aria-hidden="true"></i>命中</div>
+                                    <div class="hortree-label">用时：3s</div>
+                                </div>
+                          </div>
+                          <div class="hortree-branch">
+                                <div class="hortree-entry" >
+                                    <div class="hortree-label">信用强规则集</div>
+                                    <div class="hortree-label"><i class="glyphicon icon-circle-minus" aria-hidden="true"></i>未执行</div>
+                                </div>
+                          </div>
+                          <div class="hortree-branch">
+                                <div class="hortree-entry" >
+                                    <div class="hortree-label">信用强规则集</div>
+                                    <div class="hortree-label">未执行</div>
+                                </div>
+                          </div>
+                          <div class="hortree-branch">
+                                <div class="hortree-entry" >
+                                    <div class="hortree-label">信用强规则集</div>
+                                    <div class="hortree-label">未执行</div>
+                                </div>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+                <div class="panel panel-default" ">
+                  <div class="panel-heading">决策异常（有异常时在此显示）</div>
+                  <div class="panel-body" id="step"  style="height:100px;">
+
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">第三方数据信息 </div>
+                  <div class="panel-body" id="interface"  style="height:700px;">
+				    <table id="tb_query_list" class="evaluate-table"></table>
+                  </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+</script>

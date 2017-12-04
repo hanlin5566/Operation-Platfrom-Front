@@ -1,0 +1,60 @@
+<script id="tpl_staticQueryList" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+		<h1>数据平台访问列表</h1>
+	</div>
+	<div class="teach-admin">
+		<div class="admin-con">
+			<div class="filter">
+				<p>筛选条件</p>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入订单号" id="orderNo" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入姓名" id="name" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入身份证" id="idCard" maxlength="40"/>
+						</div>
+                        <div class="col-md-3">
+							 <input type="text" placeholder="请输手机号" id="mobile" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+							 <select id="state">
+  								<option value ="">--请选择访问状态--</option>
+  								<option value ="1">异常</option>
+  								<option value ="2">正常有数据</option>
+ 								<option value="3">正常无数据</option>
+ 								<option value="4">历史数据</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<span class="mobi-calendar iconfont icon-calendar">
+								<input name="" placeholder="请选择开始日期" type="text" id="startTime" readonly class="">
+							</span>
+						</div>
+
+						<div class="col-md-3">
+							<span class="mobi-calendar iconfont icon-calendar">
+								<input name="" placeholder="请选择结束日期" type="text" id="endTime" readonly class="">
+							</span>
+						</div>
+
+						<div class="col-md-1">
+							<a href="#" class="default-btn search-btn" style=""
+								name="searchBtn">搜索</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="kebiao-con">
+				<div id="toolbar">
+				</div>
+				<table id="tb_query_list" class="evaluate-table"></table>
+			</div>
+		</div>
+	</div>
+</div>
+</script>

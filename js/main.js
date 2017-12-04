@@ -57,6 +57,7 @@ function enterApp(appVersion) {
 	  },
 	});
 
+	require
 	requirejs(['util/requestUtil', 'util/utils', 'util/formatUtil', 'util/dataUtil',
 		'util/dateUtil', 'fastclick', 'jquery.jsrender', '../lib/localization/messages_zh', 'jquery.cookie', "mobiscroll", "ssiUploader",
 				'../lib/additional-methods'], function(requestUtil, utils, formatUtil, dataUtil, dateUtil, fastclick) {

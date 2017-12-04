@@ -12,11 +12,15 @@ define(['util/logger', ],
 	// 系统管理
 	var DOMAIN_SYSTEM_MANAGE = "localhost/system_manage";
 
-    var FRONT_DOMAIN = "";//需要在此处添加/
+    var TEST_DOMAIN = false;
+    var FRONT_DOMAIN = "operationsWebIf";
     var SERVER_DOMAIN = document.domain;
-    var SERVER_PORT = document.location.port!=""?":"+document.location.port:"";
-    var SERVER_PROTOCOL = document.location.protocol;
-    var SERVER_URI = SERVER_PROTOCOL+"//" + SERVER_DOMAIN+SERVER_PORT +""+ FRONT_DOMAIN;
+    if (SERVER_DOMAIN.indexOf('hzcf') < 0) {
+        SERVER_DOMAIN = 'localhost';
+        TEST_DOMAIN = true;
+    }
+
+    var SERVER_URI = "http://" + SERVER_DOMAIN +"/"+ FRONT_DOMAIN;
     var LOGIN_URI = "./passport.html?pageCode=login";
     var ERR_SECURITY_URI = "./err_security.html";
     var ERR_INTERNAL_URI = "./err_internal.html";
@@ -31,6 +35,7 @@ define(['util/logger', ],
             templateBase : "",
             appVersion : null, // 版本号会在config.js里面设置，不要在这里更改，这里只是声明
             SERVER_URI : SERVER_URI,
+            TEST_DOMAIN : TEST_DOMAIN,
             HOMEPAGE_URI: HOMEPAGE_URI,
             SERVER_DOMAIN : SERVER_DOMAIN,
             LOGIN_URI : LOGIN_URI,
