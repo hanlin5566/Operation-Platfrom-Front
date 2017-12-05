@@ -71,7 +71,12 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
             return;
         }
 
-        if (defaultValue | defaultValue.length <= 0) {
+        if ((defaultValue | defaultValue.length <= 0) && varDataType!="Int") {
+            alert('请选输入变量默认值');
+            me.find(".defaultValue").focus();
+            return;
+        }
+        if (!(defaultValue%1 === 0) && varDataType=="Int") {
             alert('请选输入变量默认值');
             me.find(".defaultValue").focus();
             return;
