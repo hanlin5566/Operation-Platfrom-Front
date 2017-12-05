@@ -13,15 +13,12 @@ define(['util/logger', ],
 	var DOMAIN_SYSTEM_MANAGE = "localhost/system_manage";
 
     var TEST_DOMAIN = false;
-    var FRONT_DOMAIN = "operationsWebIf";
-    var SERVER_DOMAIN = document.domain;
-    if (SERVER_DOMAIN.indexOf('hzcf') < 0) {
-        SERVER_DOMAIN = 'localhost';
-        TEST_DOMAIN = true;
-    }
-
-    var SERVER_URI = "http://" + SERVER_DOMAIN +"/"+ FRONT_DOMAIN;
-    var LOGIN_URI = "./passport.html?pageCode=login";
+    var FRONT_DOMAIN = "";//需要在此处添加/
+            var SERVER_DOMAIN = document.domain;
+            var SERVER_PORT = document.location.port!=""?":"+document.location.port:"";
+            var SERVER_PROTOCOL = document.location.protocol;
+            var SERVER_URI = SERVER_PROTOCOL+"//" + SERVER_DOMAIN+SERVER_PORT +""+ FRONT_DOMAIN;
+            var LOGIN_URI = "./passport.html?pageCode=login";
     var ERR_SECURITY_URI = "./err_security.html";
     var ERR_INTERNAL_URI = "./err_internal.html";
     var ERR_PAGE_NOT_FOUND_RUI = "./err_page_not_found.html";
