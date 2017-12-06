@@ -20,7 +20,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
         };
         var varName = me.find("#varName").val();
         if(varName.length > 0){
-        	 temp.varName = varName;
+        	 temp.varRetName = varName;
         }
         var varGroupId = me.find("#varGroupId").val();
         if(varGroupId.length > 0){
