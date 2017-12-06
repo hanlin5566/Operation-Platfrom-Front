@@ -107,24 +107,23 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
                 me.find(".score").focus();
                 return;
             }
-        	var code ='import java.util.Map'+"\r\n"
-            +'import com.huizhongcf.bean.CommonMessage'+"\r\n"
-            +'global  java.util.List messageList;//全局变量'+"\r\n"
-			+'dialect "mvel'+"\r\n"
-			+'rule "'+ruleKey+'"'+"\r\n"
-            +'salience 1'+"\r\n"
-            +'lock-on-active true'+"\r\n"
-            +'enabled true //规则是否可用 false＝不可用'+"\r\n"
-            +'when $factMap: Map(此处填写条件)'+"\r\n"
-            +'then'+"\r\n"
-            +'CommonMessage commonMessage = new CommonMessage();'+"\r\n"
-			+'commonMessage.setType("'+ruleType+'");'+"\r\n"
-                +'commonMessage.setRuleDescribe("'+ruleDescribe+'");'+"\r\n"
-                +'commonMessage.setRuleName("'+ruleDescribe+'");'+"\r\n"
-                +'commonMessage.setRuleId("'+ruleKey+'");'+"\r\n"
-                +'commonMessage.setScore(100);'+"\r\n"
-                +'messageList.add(commonMessage);'+"\r\n"
-                +'end'+"\r\n";
+        	var code ='import java.util.Map'+"\n"
+            +'import com.huizhongcf.bean.CommonMessage'+"\n"
+            +'global  java.util.List messageList'+"\n\n"
+			+'rule "'+ruleKey+'"'+"\n"
+            +'salience 1'+"\n"
+            +'lock-on-active true'+"\n"
+            +'enabled true'+"\n"
+            +'when $factMap: Map($factMap["'+ruleKey+'"])'+"\n"
+            +'then'+"\n"
+            +'CommonMessage commonMessage = new CommonMessage();'+"\n"
+			+'commonMessage.setType('+ruleType+');'+"\n"
+                +'commonMessage.setRuleDescribe("'+ruleDescribe+'");'+"\n"
+                +'commonMessage.setRuleName("'+ruleDescribe+'");'+"\n"
+                +'commonMessage.setRuleId("'+ruleKey+'");'+"\n"
+                +'commonMessage.setScore(100);'+"\n"
+                +'messageList.add(commonMessage);'+"\n"
+                +'end'+"\n";
             editor.setValue(code);
         });
     };
