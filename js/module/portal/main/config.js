@@ -210,6 +210,29 @@
             });
             nodeNavbar.addChild(level1);
             level1.addChild(level2);
+
+            level1 = new Menu({
+                pageCode: "operaMenuList",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "菜单管理",
+            });
+            level2 = new Menu({
+                pageCode: "operaMenuDetail",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "添加菜单"
+            });
+            level3 = new Menu({
+                pageCode: "operaTwoMenuDetail",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "添加二级菜单"
+            });
+            nodeNavbar.addChild(level1);
+            level1.addChild(level2);
+            level1.addChild(level3);
+
             nodeHeader.addChild(nodeNavbar);
             pageTree.addChild(nodeHeader);
             me.pageTree = pageTree;

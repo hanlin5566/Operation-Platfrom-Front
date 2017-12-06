@@ -1,20 +1,20 @@
 define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		'portal/main/config', '../../../lib/ace/ace','../../../lib/bootstrap.min','../../../lib/transfer'], function(requestUtil, Base,
 		sessionUtil, domUtil, config) {
-	var OperaAddUser = function() {
+	var OperaMenuDetail = function() {
 	};
 
 	var state ="UNKNOW";
-    OperaAddUser.prototype = new Base();
+    OperaMenuDetail.prototype = new Base();
 	// 页面初始化
-    OperaAddUser.prototype.create = function() {
+    OperaMenuDetail.prototype.create = function() {
 		var me = this;
-		me.renderMainContent("tpl_operaAddUser");
+		me.renderMainContent("tpl_operaMenuDetail");
 		me.initAceEditor();
 		me.bindInitEvent();
 	};
 	//根据传入的状态设置右上角按钮文字及传入后台的内容
-    OperaAddUser.prototype.switchState = function(state) {
+    OperaMenuDetail.prototype.switchState = function(state) {
 		var me = this;
 		//点击详情时如果为已发布则置为只读
 		if ('PUBLISHED' == state) {
@@ -36,64 +36,40 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		}
 	}
 	//提交内容
-    OperaAddUser.prototype.postContent = function(state) {
+    OperaMenuDetail.prototype.postContent = function(state) {
 		var me = this;
-		var url = "manageUser/addUserInfo";
-        var userName = me.find(".userName").val();
-        var userPwd = me.find(".userPwd").val();
-		var ciruserPwd = me.find(".ciruserPwd").val();
-		var varMobile = me.find(".varMobile").val();
-		var varEmail = me.find(".varEmail").val();
+		var url = "system/MenuInfo";
+        var menuName = me.find(".menuName").val();
+        var menuUrl = me.find(".menuUrl").val();
+
 		var usid =  me.parameter.useId;
-		var roleId = me.find(".belongRole").val();
 
        // var testDemo = editorDemo.getValue();
 		// 验证标题与内容
-		if (userName.length <= 0) {
-			alert('请填写用户名');
+		if (menuName.length <= 0) {
+			alert('请填写菜单名称');
 			return;
 		}
-		if (userPwd.length <= 0) {
-            alert('请填写登录密码');
-            me.find(".userPwd").focus();
+		if (menuUrl.length <= 0) {
+            alert('请填写菜单地址');
+            //me.find(".userPwd").focus();
             return;
-        }
-        if (ciruserPwd.length <= 0) {
-            alert('请再次确认密码');
-            me.find(".ciruserPwd").focus();
-            return;
-        }
-        if(userPwd != ciruserPwd){
-		    alert("请输入相同的密码!");
-		    return;
-        }
-        if(varMobile.length<1){
-            alert("请输入用户手机号!");
-            return;
-        }
-        if(roleId.length<1){
-            alert("请选择创建用户所属角色!");
-            return ;
         }
 
 		var data = {
-			"userName" : userName,
-			"userPwd" : userPwd,
-            "userPhone":varMobile,
-            "id":usid,
-            "userEmail":varEmail,
-            "userRoleId":roleId
-
+			"moduleTitle" : menuName,
+			"moduleHref" : menuUrl,
+            "id":usid
 		};
 		if(state == 'SAVED')
 		{
 		    alert("save");
-            url = "/manageUser/addUserInfo";
+            url = "/system/MenuInfo";
             requestUtil.post(url, data).then(function(result) {
                 if (result.code == 200) {
                     me.find("#ruleGroupId").val(result.data);
                     alert("保存成功");
-                    me.moveTo('operaUserList');
+                    me.moveTo('operaMenuList');
                     //保存成功将右上角和当前状态修改为编译
                   /*  me.find('.default-btn').text("编译测试");
                     me.find('.default-btn').attr("deployStatus","COMPILED");
@@ -140,7 +116,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 
 	};
 
-    OperaAddUser.prototype.bindInitEvent = function() {
+    OperaMenuDetail.prototype.bindInitEvent = function() {
 		var me = this;
 		me.find('.default-btn').on('click', function() {
             var x =  me.parameter.useId;
@@ -212,26 +188,6 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
             me.postContent(postStatus);
         });
 
-
-        me.find("#varGroupId").click(function() {
-            var url = "/manageUser/queryRoleInfo?limit=100&offset=0";
-            var isRole  =$('#isRole').val();
-            //$('#varGroupId').empty();
-            if(isRole==0) {
-                requestUtil.get(url).then(function (result) {
-                    if (result.success) {
-                        var data = result.data;
-                        for (var v in data) {
-                            $('#varGroupId').append("<option value=" + data[v].id + ">" + data[v].roleName + "-" + data[v].comments + "</option>");
-                        }
-                        $('#isRole').val(1);
-                    }
-                });
-            }
-
-        });
-
-
         me.find("#createTestDemo").on('click', function() {
             var demo ="{"+"\r\n";
             var selected =me.find("#selected").find(".tyue-checkbox-input");
@@ -253,33 +209,33 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
     };
 
 	// 重新显示 绑定数据后绑定点击事件（暂时这么做）
-    OperaAddUser.prototype.show = function() {
+    OperaMenuDetail.prototype.show = function() {
 		var me = this;
 		me.renderPage();
 	};
 
-    OperaAddUser.prototype.renderPage = function() {
+    OperaMenuDetail.prototype.renderPage = function() {
 		var me = this;
 	};
 
 	// 清空数据
-    OperaAddUser.prototype.clearList = function() {
+    OperaMenuDetail.prototype.clearList = function() {
 		var me = this;
 	};
 
 	// 页面隐藏
-    OperaAddUser.prototype.hide = function() {
+    OperaMenuDetail.prototype.hide = function() {
 		var me = this;
 	};
 
 	// 页面弹窗
-    OperaAddUser.prototype.popupWindow = function() {
+    OperaMenuDetail.prototype.popupWindow = function() {
 		var me = this;
 
 	};
 
     // 初始化ace
-    OperaAddUser.prototype.initAceEditor = function() {
+    OperaMenuDetail.prototype.initAceEditor = function() {
         var me = this;
         //如果有ID则填充内容
         if(me.parameter.useId){
@@ -289,12 +245,10 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
                     var userName = result.data.userName;
                     var userPwd = result.data.userPwd;
                     var userPhone = result.data.userPhone;
-                    var userRoleId = result.data.userRoleId;
                     me.find(".userName").val(userName);
                     me.find(".userPwd").val(userPwd);
                     me.find(".varMobile").val(userPhone);
                     me.find(".ciruserPwd").val(userPwd);
-                    me.find(".belongRole").val(userRoleId);
                 }else{
                   
                 }
@@ -304,5 +258,5 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
     };
 
 
-	return new OperaAddUser();
+	return new OperaMenuDetail();
 })

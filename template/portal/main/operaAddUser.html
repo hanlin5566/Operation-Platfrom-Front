@@ -6,7 +6,7 @@
     <div class="pubOperaMsg-con">
 		<div class="filter">
 			<div class="row">
-<input type="hidden" id="useId"/>
+                 <input type="hidden" id="useId"/>
 				 <div class="col-md-3">
                                 <label class="col-sm-2 control-label">用户名：</label>
                                 <input type="text" placeholder="请输入用户名" class="userName"/>
@@ -23,8 +23,24 @@
                                 <label class="col-sm-2 control-label">手机号：</label>
                                 <input type="text" placeholder="请输入手机号" class="varMobile"/>
                  </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">邮箱：</label>
+                                <input type="text" placeholder="请输入邮箱" class="varEmail"/>
+                 </div>
+
+                 <div class="col-md-3">
+                  <label class="col-sm-2 control-label">请选择所属角色：</label>
+						     <input type="hidden"  id="isRole" value="0"/>
+							  <select id="varGroupId" onmousedown="this.size=10" style="position: absolute;z-index: 1;width:180px;"
+							  onblur="this.size=0" onchange="this.size=0" class="belongRole">
+  								<option value ="">--请选择所属角色--</option>
+							</select>
+				  </div>
+
 			</div>
 		</div>
+
+
     </div>
 </div>
 </script >
