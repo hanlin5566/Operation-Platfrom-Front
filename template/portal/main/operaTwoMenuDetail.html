@@ -1,0 +1,31 @@
+<script id="tpl_operaTwoMenuDetail" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+    	<h1><span class="pull-left">添加用户</span> <a href="#" class="default-btn pull-right">保存</a></h1>
+    </div>
+    <div class="pubOperaMsg-con">
+		<div class="filter">
+			<div class="row">
+<input type="hidden" id="useId"/>
+				 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">菜单名称：</label>
+                                <input type="text" placeholder="请输入菜单名称" class="menuName"/>
+                 </div>
+				 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">菜单url：</label>
+                                <input type="text" placeholder="请输入菜单url" class="menuUrl"/>
+                 </div>
+                 <div class="col-md-3">
+                  <label class="col-sm-2 control-label">所属父菜单：</label>
+						     <input type="hidden"  id="isRole" value="0"/>
+							  <select id="varGroupId" onmousedown="this.size=10" style="position: absolute;z-index: 10;width:180px;"
+							  onblur="this.size=0" onchange="this.size=0" class="belongMenu">
+  								<option value ="">--请选择所属菜单--</option>
+							</select>
+				  </div>
+
+			</div>
+		</div>
+    </div>
+</div>
+</script >

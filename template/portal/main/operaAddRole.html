@@ -6,19 +6,45 @@
     <div class="pubOperaMsg-con">
 		<div class="filter">
 			<div class="row">
-<input type="hidden" id="roleId"/>
+<input type="hidden" id="useId"/>
+<input type="hidden" id="authMenu"/>
 				 <div class="col-md-3">
                                 <label class="col-sm-2 control-label">角色名称：</label>
-                                <input type="text" placeholder="请输入角色名" class="userRoleName"/>
+                                <input type="text" placeholder="请输入角色名称" class="userRoleName"/>
                  </div>
-
-                  <div class="col-md-3">
+				 <div class="col-md-3">
                                 <label class="col-sm-2 control-label">角色描述：</label>
                                 <input type="text" placeholder="请输入角色描述" class="roleDsc"/>
                  </div>
+                 </div>
+			</div>
+			<div class="row">
+			<div class="fl ty-transfer-list transfer-list-right">
+                <div id="MainArea" class="innerUl">
+
+
+                    <ul id="tree">
+                        <li>
+                            <input type="checkbox" id="cb0" name="chkbox">
+                            <label for="cb0"><span class="folder">系统权限</span></label>
+                            <ul id="appendtree">
+
+
+                            </ul>
+                        </li>
+
+                    </ul>
+
+ </div>
+                </div>
 
 			</div>
 		</div>
     </div>
 </div>
+	<link rel="stylesheet" href="http://static.runoob.com/assets/js/jquery-treeview/jquery.treeview.css" />
+	<!--<link rel="stylesheet" href="http://static.runoob.com/assets/js/jquery-treeview/screen.css" />-->
+
+
 </script >
+
