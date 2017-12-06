@@ -134,7 +134,7 @@
                 isMenu: true
             });
             level1 = new Menu({
-                pageCode: "info_myinfo",
+                pageCode: "decisionList",
                 positionId: "layout_manage",
                 layoutId: "layout_manage",
                 label: "决策列表",

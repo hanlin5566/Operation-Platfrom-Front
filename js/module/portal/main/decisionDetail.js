@@ -8,12 +8,15 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
 
     var sessionId;
 
-    decisionDetail.prototype.queryParams = function () {
+    decisionDetail.prototype.queryParams = function (params) {
         var me = this;
         var sessionIdParameter = sessionId;
-        var temp = { //
-            sessionId: sessionIdParameter,
+        var temp = { // 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            limit : params.limit, // 页面大小
+            offset : params.offset, // 页码
+            sessionId : sessionIdParameter,
         };
+        temp.orderNo = me.parameter.taskId;
         return temp;
     };
 
@@ -27,6 +30,45 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
 
     decisionDetail.prototype.renderPage = function () {
         var me = this;
+        //决策详情
+        var url = "/vicdes/getDecisionDetail?taskId="+me.parameter.taskId;
+        requestUtil.get(url).then(function(result) {
+            if (result.code == 200) {
+                var interfaceRecordEntity = result.data.interfaceRecordEntity;
+                var queryParams = JSON.parse(result.data.interfaceRecordEntity.queryParams)
+                var decisionType;
+                if(me.parameter.decisionType=="0") decisionType =  "未知";
+                if(me.parameter.decisionType=="1") decisionType =   "不通过";
+                if(me.parameter.decisionType=="2") decisionType =   "通过";
+                if(me.parameter.decisionType=="3") decisionType =   "异常";
+
+                me.find("#taskId").text(interfaceRecordEntity.taskId)
+                me.find("#decisionResult").text(decisionType)
+                me.find("#name").text(queryParams.name)
+                me.find("#idCard").text(interfaceRecordEntity.idCard)
+                me.find("#mobile").text(interfaceRecordEntity.mobile)
+                me.find("#loanTerm").text(queryParams.loanTerm)
+                me.find("#loanAmount").text(queryParams.loanAmount)
+                me.find("#loanUsage").text(queryParams.loanUsage)
+                me.find("#idCardAddress").text(queryParams.idCardAddress)
+                me.find("#education").text(queryParams.education)
+                me.find("#maritalStatus").text(queryParams.maritalStatus)
+                me.find("#homeAddr").text(queryParams.homeAddr)
+                me.find("#industry").text(queryParams.industry)
+                me.find("#companyAddr").text(queryParams.companyAddr)
+                me.find("#company").text(queryParams.company)
+                if(decisionType=3)
+                {
+                    me.find("#decisionError").show();
+                    me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
+                }else{
+                    me.find("#decisionStep").show();
+                }
+            } else {
+                alert(result.data.message);
+            }
+        });
+
         var operateEvents = {
             'click #QueryDetail': function (e, value, row, index) {
                 me.moveTo('staticQueryDetail',{
@@ -34,7 +76,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 });
             }
         };
-        var url = "/QueryLog/getQueryList"
+         url = "/QueryLog/getQueryList"
         var $table = new Table(
             me.find("#tb_query_list"),
             {

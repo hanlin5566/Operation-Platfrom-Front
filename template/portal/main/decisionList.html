@@ -1,0 +1,54 @@
+<script id="tpl_decisionList" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+		<h1>进件决策列表</h1>
+	</div>
+	<div class="teach-admin">
+		<div class="admin-con">
+			<div class="filter">
+				<p>筛选条件</p>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入订单号" id="taskId" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+							 <input type="text" placeholder="请输入身份证" id="idCard" maxlength="40"/>
+						</div>
+						<div class="col-md-3">
+							 <select id="decisionType">
+  								<option value ="">--请选择决策状态--</option>
+  								<option value ="0">未知</option>
+  								<option value ="1">不通过</option>
+  								<option value ="2">通过</option>
+ 								<option value="3">异常</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<span class="mobi-calendar iconfont icon-calendar">
+								<input name="" placeholder="请选择开始日期" type="text" id="startTime" readonly class="">
+							</span>
+						</div>
+
+						<div class="col-md-3">
+							<span class="mobi-calendar iconfont icon-calendar">
+								<input name="" placeholder="请选择结束日期" type="text" id="endTime" readonly class="">
+							</span>
+						</div>
+
+						<div class="col-md-1">
+							<a href="javascript:void(0)" class="default-btn search-btn" style=""
+								name="searchBtn">搜索</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="kebiao-con">
+				<div id="toolbar">
+				</div>
+				<table id="tb_app_order_list" class="evaluate-table"></table>
+			</div>
+		</div>
+	</div>
+</div>
+</script>

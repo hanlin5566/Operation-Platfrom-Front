@@ -2,15 +2,15 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 		'util/sessionUtil', 'util/domUtil','util/dateUtil','mobiscroll', 'portal/main/config','widget/table', 'bootstrapTable'], function(
 		requestUtil, Base,formatUtil, sessionUtil, domUtil, dateUtil, mobiscroll,config,Table) {
 	
-	var staticQueryList = function() {
+	var decisionList = function() {
 		
 	};
 
-	staticQueryList.prototype = new Base();
+	decisionList.prototype = new Base();
 	
 	var sessionId;
 	
-	staticQueryList.prototype.queryParams = function(params) {
+	decisionList.prototype.queryParams = function(params) {
         var me = this;
         var sessionIdParameter = sessionId;
         var temp = { // 这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
@@ -18,27 +18,18 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
             offset : params.offset, // 页码
             sessionId : sessionIdParameter,
         };
-        var orderNo = me.find("#orderNo").val();
-        if(orderNo.length > 0){
-        	 temp.orderNo = orderNo;
+        var taskId = me.find("#taskId").val();
+        if(taskId.length > 0){
+        	 temp.taskId =taskId;
         }
-        var name = me.find("#name").val();
-        if(name.length > 0){
-        	temp.name = name;
-        }
-
         var idCard = me.find("#idCard").val();
         if(idCard.length > 0){
-            temp.idCard = idCard;
+        	temp.idCard = idCard;
         }
 
-        var mobile = me.find("#mobile").val();
-        if(mobile.length > 0){
-            temp.mobile = mobile;
-        }
-        var state = me.find("#state").val();
-        if(state.length > 0){
-        	temp.state = state;
+        var decisionType = me.find("#decisionType").val();
+        if(decisionType.length > 0){
+        	temp.decisionType = decisionType;
         }
         var startTime = me.find("#startTime").val();
         if(startTime.length > 0){
@@ -52,9 +43,9 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
     };
 	
 	// 页面初始化
-	staticQueryList.prototype.create = function() {
+	decisionList.prototype.create = function() {
 		var me = this;
-		me.renderMainContent("tpl_staticQueryList");
+		me.renderMainContent("tpl_decisionList");
 		me.renderPage();
 		me.bindEvent();
 		me.find('#startTime').mobiscroll().calendar({
@@ -87,18 +78,19 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
         });
 	};
 	
-	staticQueryList.prototype.renderPage = function() {
+	decisionList.prototype.renderPage = function() {
 		var me=this;
         var operateEvents = {
-            'click #QueryDetail': function (e, value, row, index) {
-                me.moveTo('staticQueryDetail',{
-                    'id' : value
+            'click #decisionDetail': function (e, value, row, index) {
+                me.moveTo('decisionDetail',{
+                    'taskId' : row.taskId,
+                    'decisionType' : row.decisionType
                 });
             }
         };
-		var url = "/QueryLog/getQueryList"
+		var url = "/AppOrder/getList"
 		var $table = new Table(
-				me.find("#tb_query_list"),
+				me.find("#tb_app_order_list"),
 				{
 					url: url,// 请求后台的URL（*）
 					toolbar: me.find('#toolbar'), // 工具按钮用哪个容器
@@ -107,30 +99,25 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 					uniqueId: "id", // 每一行的唯一标识，一般为主键列
 					columns:[
 							{
-								field: 'orderNo',
+								field: 'taskId',
 								title: '订单号'
 							},
 					      {
-					    	  field: 'interfaceType',
-		                      title: '接口名称'
+					    	  field: 'idCard',
+		                      title: '身份证'
 					      },
-                        {
-                            field: 'queryTime',
-                            title: '访问时间'
-                        },
-                        {
-                            field: 'timeUsed',
-                            title: '用时（ms）'
-                        },
+							{
+								field: 'timeUsed',
+								title: '用时（s）'
+							},
 					      {
-					    	  field: 'state',
-		                      title: '访问状态',
+					    	  field: 'decisionType',
+		                      title: '决策状态',
                               formatter: function (value, row, index) {
-					    	  	  if(value=="0") return "异常";
-					    	  	  if(value=="1") return "异常";
-                                  if(value=="2") return "正常有数据";
-                                  if(value=="3") return "正常无数据";
-                                  if(value=="4") return "历史数据";
+					    	  	  if(value=="0") return "未知";
+					    	  	  if(value=="1") return "不通过";
+                                  if(value=="2") return "通过";
+                                  if(value=="3") return "异常";
                               }
 					      },
 					      {
@@ -138,7 +125,8 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 		                      title: '操作',
 		                      events: operateEvents,
 		                      formatter: function (value, row, index) {
-                                  return '<a class="state-link" id="QueryDetail" varId="'+value+'">详情</a>';
+                                  return '<a class="state-link" id="decisionDetail" varId="'+value+'">详情</a>' +
+									  '<a class="state-link" id="reDecision" varId="'+value+'">重新决策</a>';
 		                      }
 					      },
 					],
@@ -153,30 +141,30 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 	};
 	
 	//清空数据
-	staticQueryList.prototype.clearList = function() {
+	decisionList.prototype.clearList = function() {
         var me = this;
     };
     
     
 	// 重新显示
-	staticQueryList.prototype.show = function() {
+	decisionList.prototype.show = function() {
 		
 	};
 	
 	//页面点击
-	staticQueryList.prototype.bindEvent = function() {
+	decisionList.prototype.bindEvent = function() {
 		var me = this;
 
 		me.find("a[name='searchBtn']").click(function() {
-			me.find('#tb_query_list').bootstrapTable('refresh', me.queryParams);
+			me.find('#tb_app_order_list').bootstrapTable('refresh', me.queryParams);
 		});
 
 	};
 	
 	// 页面隐藏
-	staticQueryList.prototype.hide = function() {
+	decisionList.prototype.hide = function() {
 		
 	};
 
-	return new staticQueryList();
+	return new decisionList();
 });
