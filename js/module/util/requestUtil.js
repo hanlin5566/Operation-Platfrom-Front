@@ -229,7 +229,7 @@ define(['util/logger', ],
                 } else if (handleApiResponseStatus(data)) {
                     newDef.resolve(data);
                 } else {
-					alert("system error");
+					alert(data.message);
 				}
             },
             error: function(request, textStatus) {

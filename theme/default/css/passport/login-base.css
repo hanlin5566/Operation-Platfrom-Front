@@ -81,6 +81,12 @@ form .error{
 
 .registerError{color: #ed4a4a;}
 
-
+.modal-form{position: absolute;top:0; left:0;right:0;bottom:0; background:url("../../images/loginbg.png");background-size:100% 100%}
+.login-logo{position: absolute;top:-80px; left:65px;right:0;bottom:0; background:url("../../images/logo_wev8.png");background-size:100% 100%}
+.loginwrap{width:500px;height:300px;position: absolute;top:50%; left:50%;margin:-150px 0 0 -250px;background-color:rgba(255,255,255,.6);border-radius:5px;box-shadow:0 0 10px rgba(114,114,114,.6)}
+.loginwrap .form{width:300px;margin:40px auto}
+.loginwrap .form input{width:300px;border:solid 1px #ddd;padding:10px;border-radius:5px;}
+.loginwrap .form .login-btn{background-color:#005aa1;color:#fff;border:none}
+.loginwrap .form .login-btn:hover{opacity:.8}
 
 

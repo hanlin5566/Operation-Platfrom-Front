@@ -1,55 +1,7 @@
-define(['util/utils', 'util/sessionUtil', 'util/dataUtil', 'util/codeUtil'],
-  function(utils, sessionUtil, dataUtil, codeUtil){
+define(['util/requestUtil','util/utils', 'util/sessionUtil', 'util/dataUtil', 'util/codeUtil'],
+  function(requestUtil,utils, sessionUtil, dataUtil, codeUtil){
   
   var LoginLogic = {};
-  
-  /**
-   * 获取帐户信息
-   */ 
-  LoginLogic.getAccountinfo = function() {
-    var userPropType = dataUtil.getUserPropType();
-    if (!userPropType) {
-      return $.Deferred().resolve({result:false}).promise();
-    }
-    return utils.get('profile')
-    .then(function(result) {
-      if (result && result.code == "200") {
-        sessionUtil.set(sessionUtil.KEY_USER_INFO, result.data); 
-
-        var userStatus = result.data.userStatus.name;
-        if (result.data.passwordStatus && result.data.passwordStatus.name == "FORCE_UPDATE") {
-          return {result: false, page:"securitySetting"};
-        } 
-        
-        if (userStatus == "CLOSED") {
-          return {result: false, msg: "该帐号已冻结"};
-        } else if (userStatus == "NORMAL") {
-          var auditStatus = null;
-          if (result.data.company && result.data.company.auditStatus) {
-            auditStatus = result.data.company.auditStatus.name;
-          }
-          
-          // 米卡会没有auditStatus
-          if (auditStatus == null) {
-            var userPropType = dataUtil.getUserPropType();
-            if (userPropType == 'micarshow' || userPropType == 'terminalstore' || userPropType == 'serviceProvider' || userPropType == 'manufacturer') {
-              return {result: true};
-            } else {
-              return {result: false, msg:'获取用户信息失败'};
-            }
-          } else if (auditStatus == 'APPROVED') {
-            return {result: true};
-          } else if (auditStatus == 'UNKNOWN') {
-            return {result: false, page:"registryEditDetail"};
-          } else {
-            return {result: false, page:"registryDetailPreview"};
-          }
-        }
-      }else{
-        return {result: false, msg:'获取用户信息失败'};
-      }
-    });
-  };
   
   /**
    * 登录验证
@@ -60,16 +12,31 @@ define(['util/utils', 'util/sessionUtil', 'util/dataUtil', 'util/codeUtil'],
    */
   LoginLogic.authLogin = function(para) {
     me = this;
-    var userPropType = dataUtil.getUserPropType();
-    para.userType = codeUtil.mapUserType(userPropType);
-    return utils.post('auth', para, true).then(function(result) {
+    //清空
+    return requestUtil.post('/platfrom/userlogin', para).then(function(result) {
       if (result.code == "200") {
         dataUtil.set(dataUtil.KEY_LOGINVO, result.data); 
-        return me.getAccountinfo(); 
+        sessionUtil.set(sessionUtil.KEY_USER_INFO, result.data); 
+        return location.href = "./main.html";
       } else {
+    	alert(result.message);
         return {result: false, msg: '登录失败，请确认信息后重新登录'};
       }
     });
+  };
+  
+  LoginLogic.authLogout = function() {
+	    me = this;
+	    //清空
+	    return requestUtil.post('auth/logout').then(function(result) {
+	      if (result.code == "200") {
+	    	dataUtil.clear(dataUtil.KEY_LOGINVO);
+	    	sessionUtil.clear(sessionUtil.KEY_USER_INFO);
+	    	window.location.href = requestUtil.setting.LOGIN_URI + "&type=logout";
+	      } else {
+	        return {result: false, msg: '退出失败'};
+	      }
+	    });
   };
   
   return LoginLogic;

@@ -35,6 +35,7 @@
             var level1 = new Menu({
                 pageCode: "login",
                 label: "登录",
+                skipAuth:true,
                 positionId: "main_container",
                 layoutId: "layout_main",
             });

@@ -1,6 +1,6 @@
 define(['util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
-        'portal/main/config', 'widget/dropDown', 'widget/table', 'bootstrapTable', 'icheck'],
-    function (requestUtil, Base, sessionUtil, domUtil, config, dropDown, Table) {
+        'portal/main/config','portal/passport/loginLogic', 'widget/dropDown', 'widget/table', 'bootstrapTable', 'icheck'],
+    function (requestUtil, Base, sessionUtil, domUtil, config,loginLogic, dropDown, Table) {
         var Login = function () {
         };
         var homeworkId = '';
@@ -13,19 +13,15 @@ define(['util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
             
             me.find(".login-btn").on("click", function() {
             	var para = {
-            			cellphone: me.find(".cellphone").val(),
-            			password: me.find(".password").val()
+            			userName: me.find(".cellphone").val(),
+            			userPwd: me.find(".password").val()
             	};
             	
-            	if (!para.cellphone || !para.password) {
-            		alert("没输入登录不了");
+            	if (!para.userName || !para.userPwd) {
+            		alert("请输入用户名或密码！");
             		return;
             	}
-            	
-            	requestUtil.post("auth/login", para)
-            	.then(function() {
-            		location.href = "./main.html";
-            	});
+            	loginLogic.authLogin(para);
             });
             
         };
