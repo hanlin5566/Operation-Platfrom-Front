@@ -1,0 +1,315 @@
+<script id="tpl_antiFraudTest" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+    	<h1><span class="pull-left">添加用户</span> <a href="#" class="default-btn pull-right">保存</a></h1>
+    </div>
+    <div class="pubOperaMsg-con">
+		<div class="filter">
+			<div class="row">
+                  <input type="hidden" id="useId"/>
+                  <input type="hidden"  id="decType"/>
+                  <input type="hidden"  id="taskId"/>
+				 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">姓名：</label>
+                                <input type="text" placeholder="请输入姓名" class="name"/>
+                 </div>
+				 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">手机号：</label>
+                                <input type="text" placeholder="请输入手机号" class="mobile"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">身份证号：</label>
+                                <input type="text" placeholder="请输入身份证号码" class="idCard"/>
+                 </div>
+
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">进件号：</label>
+                                <input type="text" placeholder="请输入唯一进件号" class="taskId"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">产品类型：</label>
+                              <input type="hidden"  id="applic" value="0"/>
+							  <select id="varGroupId" onmousedown="this.size=1" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="applicationType">
+  								<option value ="">--请选择产品类型--</option>
+  								<option value="1">老铁救急</option>
+							</select>
+
+                 </div>
+                 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">生日：</label>
+                                <input type="text" placeholder="请输入出生日" class="birthday"/>
+                 </div>
+                 </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">性别：</label>
+
+                                <input type="hidden"  id="applic" value="0"/>
+							  <select id="varGroupId" onmousedown="this.size=2" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="gender">
+  								<option value ="">--请选择性别--</option>
+  								<option value="男">男</option>
+  								<option value="女">女</option>
+							</select>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">民族：</label>
+                                <input type="text" placeholder="请输入民族" class="race"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">户籍所在地：</label>
+                                <input type="text" placeholder="请输入户籍所在地" class="idCardAddress"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">证件有效期：</label>
+                                <input type="text" placeholder="YYYY.MM.DD-YYYY.MM.DD" class="idCardValidDate"/>
+                 </div>
+                 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">身份证合法：</label>
+                                <input type="text" placeholder="身份证合法性(1)" class="idCardLegality"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">比对阙值：</label>
+                                <input type="text" placeholder="人脸比对Float" class="thresholdsIdcard"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">活体数据源：</label>
+                                <input type="text" placeholder="活体数据源比对阙值" class="thresholdsFace"/>
+                 </div>
+                 </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">是否被攻击：</label>
+                                <input type="text" placeholder="是否被攻击(取值1)" class="idAttacked"/>
+                 </div>
+
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">学历：</label>
+                                <input type="text" placeholder="请输入学历" class="education"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">婚姻状况：</label>
+                                <input type="text" placeholder="请输入婚姻状况" class="maritalStatus"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">户籍所在地：</label>
+                                <input type="text" placeholder="户籍所在地" class="domicile"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">现住址：</label>
+                                <input type="text" placeholder="现住址" class="homeAddr"/>
+                 </div>
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">居住时长：</label>
+                                <input type="text" placeholder="居住时长" class="residenceLength"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">行业：</label>
+                                <input type="text" placeholder="行业" class="industry"/>
+                 </div>
+                  </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">工作地址：</label>
+                                <input type="text" placeholder="工作地址" class="companyAddr"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">工作时长：</label>
+                                <input type="text" placeholder="工作时长" class="workingHours"/>
+                 </div>
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">单位名称：</label>
+                                <input type="text" placeholder="单位名称" class="company"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">职位：</label>
+                                <input type="text" placeholder="职位" class="position"/>
+                 </div>
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">月收入：</label>
+                                <input type="text" placeholder="月收入" class="monthlyIncome"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">工资发放日：</label>
+                                <input type="text" placeholder="工资发放日" class="payrollDay"/>
+                 </div>
+
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">亲属类型：</label>
+                                <input type="text" placeholder="亲属联系人类型" class="relativeType"/>
+                 </div>
+
+                  </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">亲属名称：</label>
+                                <input type="text" placeholder="亲属联系人名称" class="relativeName"/>
+                 </div>
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">亲属手机：</label>
+                                <input type="text" placeholder="亲属联系人手机号" class="relativeMobile"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">非亲属类型：</label>
+                                <input type="text" placeholder="非亲属联系人类型" class="nonRelativeType"/>
+                 </div>
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">非亲属姓名：</label>
+                                <input type="text" placeholder="非亲属联系人姓名" class="nonRelativeName"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">非亲属手机：</label>
+                                <input type="text" placeholder="非亲属联系人手机号" class="nonRelativeMobile"/>
+                 </div>
+                   <div class="col-md-3">
+                                <label class="col-sm-2 control-label">借款期限：</label>
+                                <input type="text" placeholder="请输入借款期限（借款填写）" class="loanTerm"/>
+                 </div>
+                 </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">借款金额：</label>
+                                <input type="text" placeholder="请输入借款金额" class="loanAmount"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">借款用途：</label>
+                                <input type="text" placeholder="请输入借款用途" class="loanUsage"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">其他借款：</label>
+                                <input type="text" placeholder="请输入其他借款渠道信息" class="otherChannelsInfo"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">银行卡号：</label>
+                                <input type="text" placeholder="请输入银行卡号（银行信息填写）" class="bankCard"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">ip：</label>
+                                <input type="text" placeholder="请输入ip地址（设备指纹）" class="ip"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">Sim卡序：</label>
+                                <input type="text" placeholder="Sim卡序列号（设备指纹）" class="imsi"/>
+                 </div>
+                 </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">手机设备号：</label>
+                                <input type="text" placeholder="请输入手机设备号" class="imei"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">手机设备号：</label>
+                                <input type="text" placeholder="请输入手机设备号" class="idfa"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">mac地址：</label>
+                                <input type="text" placeholder="请输入设备mac地址" class="mac"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">操作系统：</label>
+                                <input type="text" placeholder="请输入操作系统" class="osType"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">系统版本号：</label>
+                                <input type="text" placeholder="操作系统版本号" class="osVer"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">wifiMac：</label>
+                                <input type="text" placeholder="请输入wifiMac" class="wifiMac"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">wifi服务集：</label>
+                                <input type="text" placeholder="请输入wifi服务集表示（借款填写）" class="wifiSsid"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">wifiBssid：</label>
+                                <input type="text" placeholder="请输入wifiBssid（借款填写）" class="wifiBssid"/>
+                 </div>
+                 </div>
+                 </div>
+                 <div class="filter">
+                 <div class="row">
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">数美贷回溯：</label>
+                                <input type="text" placeholder="数美多头贷回溯时间（数美）" class="nextDataBacktracking"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">数美天统计：</label>
+                                <input type="text" placeholder="请输入数美多头贷最多多少天统计（数美）" class="nextDataHistoryDays"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">时间段：</label>
+                                <input type="text" placeholder="请输入时间段（华道用）" class="emayCycle"/>
+                 </div> <div class="col-md-3">
+                                <label class="col-sm-2 control-label">平台类型：</label>
+                                <input type="text" placeholder="平台类型（华道）" class="emayPlatform"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">通话记录：</label>
+                                <input type="text" placeholder="请输入通话记录（用户授权）" class="callRecords"/>
+                 </div>
+                 </div>
+                 <div>
+                 <div class="filter">
+                 <div class="row">
+                 <div class="col-md-3">
+                                <label class="col-sm-2 control-label">手机联系人：</label>
+                                <input type="text" placeholder="请输入手机联系人（用户授权）" class="callContacts"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">对方手机号：</label>
+                                <input type="text" placeholder="请输入对方手机号" class="phone"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">通话类型：</label>
+                                <input type="text" placeholder="请输入通话类型" class="type"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">通话始时间：</label>
+                                <input type="text" placeholder="请输入通话开始时间（YYYY-MM-DD HH:ii:ss）" class="startTime"/>
+                 </div>
+
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">通话时长：</label>
+                                <input type="text" placeholder="请输入通话时长" class="duration"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">手机号：</label>
+                                <input type="text" placeholder="请输入手机号" class="phone"/>
+                 </div>
+                  <div class="col-md-3">
+                                <label class="col-sm-2 control-label">名称：</label>
+                                <input type="text" placeholder="请输入名称" class="name"/>
+                 </div>
+
+
+			</div>
+		</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">Modal title</h2>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+
+      <div class="modal-footer" style="text-align:center">
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    </div>
+</div>
+</script >
