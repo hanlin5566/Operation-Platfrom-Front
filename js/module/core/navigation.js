@@ -77,9 +77,9 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 				return;
 			}
 			para = $.extend(para || {}, {pageCode : pageCode});
-//			this.validateAuth_(menu, function() {
+			me.validateAuth_(menu, function() {
 				me.pushState(menu, para);
-//			});
+			});
 		});
 	};
 	
@@ -139,11 +139,11 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 	};
 
 	Navigation.prototype.validateAuth_ = function(menu, callback) {
-		// 非在线域名，直接返回
-		if (document.domain != requestUtil.setting.SERVER_DOMAIN) {
-			callback();
-			return;
-		}
+		// TODO:临时注释，非在线域名，直接返回
+//		if (document.domain != requestUtil.setting.SERVER_DOMAIN) {
+//			callback();
+//			return;
+//		}
 
 		var me = this;
 
@@ -155,10 +155,10 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 		
 		// 如果存在cookie
 		var loginVo = dataUtil.get(dataUtil.KEY_LOGINVO);
-		if (!loginVo || !loginVo.cookieName
-				|| !$.cookie(loginVo.cookieName.name)) {
+		//允许除了admin外的角色登录|| loginVo.userInfo.userType.name != 'ADMIN'
+		if (!loginVo) {
 
-			// 不存在cookie，到登录页
+			// 不存在到登录页
 			sessionUtil.clear(sessionUtil.KEY_USER_INFO);
 			window.location.href = requestUtil.setting.LOGIN_URI + "&type=skipauto";
 			return;
@@ -167,25 +167,14 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 		var userInfo = sessionUtil.get(sessionUtil.KEY_USER_INFO);
 
 		// 如果存在session
-		if (userInfo) {
-			// 直接到请求页面
-			callback();
+		if (!userInfo) {
+			dataUtil.clear(dataUtil.KEY_LOGINVO);
+			window.location.href = requestUtil.setting.LOGIN_URI + "&type=skipauto";
 			return;
 		}
-
-		// 如果不存在session，直接获取
-		loginLogic.getAccountinfo()
-		.then(function(result) {
-			if (result.result) {
-				// 到请求页面
-//				me.navbar.refreshMenu();
-				callback();
-			} else {
-				// 获取session失败，跳到登录页
-				$.removeCookie(loginVo.cookieName.name);
-				window.location.href = requestUtil.setting.LOGIN_URI + "&type=skipauto";
-			}
-		});
+		// 直接到请求页面
+		callback();
+		return;
 	};
 
 	Navigation.prototype.start = function() {
@@ -205,9 +194,9 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 		
 		this.config.getPageInfo(para.pageCode)
 		.then(function(menu) {
-//			this.validateAuth_(menu, function() {
+			me.validateAuth_(menu, function() {
 				me.pushState(menu, para, true);
-//			});
+			});
 		});
 	};
 

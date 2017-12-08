@@ -16,7 +16,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 	//提交内容
 	operaVarGroupDetail.prototype.postContent = function() {
 		var me = this;
-		var url = "derivedGroup";
+		var url = "/derivedGroup";
 		var groupName = me.find(".groupName").val();
 		var description = me.find(".description").val();
 		var queryIface = me.find(".queryIface").val();
@@ -87,7 +87,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		var me = this;
 		//如果有ID则填充内容
 		if(me.parameter.varGroupId){
-        	var url = "derivedGroup/"+me.parameter.varGroupId;
+        	var url = "/derivedGroup/"+me.parameter.varGroupId;
         	requestUtil.get(url,null).then(function(result) {
 				if (result.code == 200) {
 					var varGroupId = result.data.varGroupId;

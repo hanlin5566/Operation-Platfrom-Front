@@ -153,10 +153,9 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
         me.find("a[name='searchBtn']").click(function() {
 
             var url = "/Rules/all";
-            var ruleName = me.find(".ruleName").val();
-            var ruleKey = me.find(".ruleKey").val();
-            var varGroupId = me.find("#varGroupId").val();
-
+            var ruleName = me.find(".ruleName").val()!="" ? me.find(".ruleName").val() : null;
+            var ruleKey =  me.find(".ruleKey").val()!="" ? me.find(".ruleKey").val() : null;
+            var varGroupId = me.find("#varGroupId").val()!="" ? me.find("#varGroupId").val() : null;
             var data = {
                 "ruleName" : ruleName,
                 "ruleKey" : ruleKey,
@@ -272,11 +271,11 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		//如果有ID则填充内容
 
         //数据源选项
-        requestUtil.get("/derivedGroup").then(function(result) {
+        requestUtil.get("/derivedGroup?limit=100&offset=0").then(function(result) {
             if(result.success) {
                 var data = result.data;
                 for (var v in data) {
-                    $('#varGroupId').append("<option value=" + data[v].varGroupId + ">" + data[v].description + "</option>");
+                    $('#varGroupId').append("<option value="+data[v].varGroupId+">"+data[v].groupName+"-"+data[v].description+"</option>");
                 }
               }
             });

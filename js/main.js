@@ -9,6 +9,7 @@ function globalInit() {
 //            'ver' : eduWechat.baseUrl + "data/ver"
 //        }
 //    });
+//
 //    
 //    requirejs([ 'ver' ],function(ver) {
 //        enterApp(ver.version);
