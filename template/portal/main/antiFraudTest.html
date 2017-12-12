@@ -89,16 +89,44 @@
                  </div>
 
                   <div class="col-md-3">
+                                <!--<label class="col-sm-2 control-label">学历：</label>
+                                <input type="text" placeholder="请输入学历" class="education"/>-->
+
+
                                 <label class="col-sm-2 control-label">学历：</label>
-                                <input type="text" placeholder="请输入学历" class="education"/>
+                              <input type="hidden"  id="applic" value="0"/>
+							  <select id="varGroupId" onmousedown="this.size=7" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="education">
+  								<option value ="">--请选择学历--</option>
+  								<option value="1">小学</option>
+  								<option value="2">初中</option>
+  								<option value="3">高中/中专</option>
+  								<option value="4">大专</option>
+  								<option value="5">硕士研究生</option>
+  								<option value="6">博士研究生</option>
+							</select>
+
+
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">婚姻状况：</label>
-                                <input type="text" placeholder="请输入婚姻状况" class="maritalStatus"/>
+                              <!--  <input type="text" placeholder="请输入婚姻状况" class="maritalStatus"/>-->
+                                <input type="hidden"  id="maritalStatus" value="0"/>
+							  <select id="varGroupId" onmousedown="this.size=7" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="maritalStatus">
+  								<option value ="">--请选择婚姻状况--</option>
+  								<option value="1">未婚</option>
+  								<option value="2">已婚无子女</option>
+  								<option value="3">已婚有子女</option>
+  								<option value="4">其他</option>
+							</select>
+
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">户籍所在地：</label>
                                 <input type="text" placeholder="户籍所在地" class="domicile"/>
+
+
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">现住址：</label>
@@ -106,11 +134,40 @@
                  </div>
                    <div class="col-md-3">
                                 <label class="col-sm-2 control-label">居住时长：</label>
-                                <input type="text" placeholder="居住时长" class="residenceLength"/>
+
+                              <input type="hidden"  id="residenceLength" value="0"/>
+							  <select id="residenceLength" onmousedown="this.size=5" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="residenceLength">
+  								<option value ="">--请选择居住时长--</option>
+  								<option value="1">3个月及以下</option>
+  								<option value="2">3个月-6个月</option>
+  								<option value="3">6个月-1年</option>
+  								<option value="4">1年-3年</option>
+  								<option value="5">3年以上</option>
+							</select>
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">行业：</label>
-                                <input type="text" placeholder="行业" class="industry"/>
+
+                              <input type="hidden"  id="indus" value="0"/>
+							  <select id="industry" onmousedown="this.size=5" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="industry">
+  								<option value ="">--请选择行业--</option>
+  								<option value="1">政府机关</option>
+  								<option value="2">军事机关</option>
+  								<option value="3">教育、科研、设计机构</option>
+  								<option value="4">传媒、文化体育</option>
+  								<option value="5">高新技术制造业</option>
+  								<option value="6">建筑业</option>
+  								<option value="7">传统制造业</option>
+  								<option value="8">金融业</option>
+  								<option value="9">服务业</option>
+  								<option value="10">零售、商贸、企业</option>
+  								<option value="11">专业服务机构</option>
+  								<option value="12">公共事业</option>
+  								<option value="13">医院</option>
+  								<option value="14">其他</option>
+							</select>
                  </div>
                   </div>
                  </div>
@@ -122,7 +179,16 @@
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">工作时长：</label>
-                                <input type="text" placeholder="工作时长" class="workingHours"/>
+
+							  <select id="workingHours" onmousedown="this.size=5" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="workingHours">
+  								<option value ="">--请选择工作时长--</option>
+  								<option value="1">3个月及以下</option>
+  								<option value="2">3个月-6个月</option>
+  								<option value="3">6个月-1年</option>
+  								<option value="4">1年-3年</option>
+  								<option value="5">3年以上</option>
+							</select>
                  </div>
                    <div class="col-md-3">
                                 <label class="col-sm-2 control-label">单位名称：</label>
@@ -130,20 +196,85 @@
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">职位：</label>
-                                <input type="text" placeholder="职位" class="position"/>
+
+                             <select id="position" onmousedown="this.size=4" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="position">
+  								<option value ="">--请选择工作时长--</option>
+  								<option value="1">高层管理人员</option>
+  								<option value="2">中层管理人员</option>
+  								<option value="3">一般管理人员</option>
+  								<option value="4">一般员工</option>
+
+							</select>
                  </div>
                    <div class="col-md-3">
                                 <label class="col-sm-2 control-label">月收入：</label>
-                                <input type="text" placeholder="月收入" class="monthlyIncome"/>
+
+                              <select id="monthlyIncome" onmousedown="this.size=4" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="monthlyIncome">
+  								<option value ="">--请选择月收入--</option>
+  								<option value="1">3000元及以下</option>
+  								<option value="2">3000-5000</option>
+  								<option value="3">5000-8000</option>
+  								<option value="4">8000-10000</option>
+  								<option value="5">10000以上</option>
+
+							</select>
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">工资发放日：</label>
-                                <input type="text" placeholder="工资发放日" class="payrollDay"/>
+                                <!--<input type="text" placeholder="工资发放日" class="payrollDay"/>-->
+                                <select id="payrollDay" onmousedown="this.size=4" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="payrollDay">
+  								<option value ="">--请选择工资发放日--</option>
+  								<option value="1">1</option>
+  								<option value="2">2</option>
+  								<option value="3">3</option>
+  								<option value="4">4</option>
+  								<option value="5">5</option>
+  								<option value="6">6</option>
+  								<option value="7">7</option>
+  								<option value="8">8</option>
+  								<option value="9">9</option>
+  								<option value="10">10</option>
+  								<option value="11">11</option>
+  								<option value="12">12</option>
+  								<option value="13">13</option>
+  								<option value="14">14</option>
+  								<option value="15">15</option>
+  								<option value="16">16</option>
+  								<option value="17">17</option>
+  								<option value="18">18</option>
+  								<option value="19">19</option>
+  								<option value="20">20</option>
+  								<option value="21">21</option>
+  								<option value="22">22</option>
+  								<option value="23">23</option>
+  								<option value="24">24</option>
+  								<option value="25">25</option>
+  								<option value="26">26</option>
+  								<option value="27">27</option>
+  								<option value="28">28</option>
+  								<option value="29">29</option>
+  								<option value="30">30</option>
+  								<option value="31">31</option>
+
+							</select>
                  </div>
 
                    <div class="col-md-3">
                                 <label class="col-sm-2 control-label">亲属类型：</label>
-                                <input type="text" placeholder="亲属联系人类型" class="relativeType"/>
+                               <!-- <input type="text" placeholder="亲属联系人类型" class="relativeType"/>-->
+                              <select id="relativeType" onmousedown="this.size=4" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="relativeType">
+  								<option value ="">--请选择亲属类型--</option>
+  								<option value="1">配偶</option>
+  								<option value="2">父母</option>
+  								<option value="3">子女</option>
+  								<option value="4">祖父母</option>
+  								<option value="5">兄弟姐妹</option>
+
+							</select>
                  </div>
 
                   </div>
@@ -160,7 +291,14 @@
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">非亲属类型：</label>
-                                <input type="text" placeholder="非亲属联系人类型" class="nonRelativeType"/>
+
+                              <select id="nonRelativeType" onmousedown="this.size=4" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="nonRelativeType">
+  								<option value ="">--请选择非亲属类型--</option>
+  								<option value="1">同事</option>
+  								<option value="2">朋友</option>
+							</select>
+
                  </div>
                    <div class="col-md-3">
                                 <label class="col-sm-2 control-label">非亲属姓名：</label>
@@ -172,7 +310,15 @@
                  </div>
                    <div class="col-md-3">
                                 <label class="col-sm-2 control-label">借款期限：</label>
-                                <input type="text" placeholder="请输入借款期限（借款填写）" class="loanTerm"/>
+                                <!--<input type="text" placeholder="请输入借款期限（借款填写）" class="loanTerm"/>
+                               <input type="hidden"  id="loanTerm" value="0"/>-->
+
+							  <select id="loanTerm" onmousedown="this.size=7" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="loanTerm">
+  								<option value ="">--请选择借款期限--</option>
+  								<option value="1">1个月</option>
+  								<option value="2">2个月</option>
+  								<option value="3">3个月</option>
                  </div>
                  </div>
                  </div>
@@ -180,15 +326,47 @@
                  <div class="row">
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">借款金额：</label>
-                                <input type="text" placeholder="请输入借款金额" class="loanAmount"/>
+                              <input type="hidden"  id="loanAmount" value="0"/>
+							  <select id="loanAmount" onmousedown="this.size=7" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="loanAmount">
+  								<option value ="">--请选择借款金额--</option>
+  								<option value="1">1000</option>
+  								<option value="2">2000</option>
+  								<option value="3">3000</option>
+
+							</select>
+
+
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">借款用途：</label>
-                                <input type="text" placeholder="请输入借款用途" class="loanUsage"/>
+                            <input type="hidden"  id="loanUsage" value="0"/>
+							  <select id="loanUsage" onmousedown="this.size=7" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="loanUsage">
+  								<option value ="">--请选择借款用途--</option>
+  								<option value="1">租房</option>
+  								<option value="2">购物</option>
+  								<option value="3">教育/培训</option>
+  								<option value="4">医美</option>
+  								<option value="5">旅游</option>
+  								<option value="6">短期资金周转</option>
+  								<option value="7">偿还信用卡</option>
+
+							</select>
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">其他借款：</label>
-                                <input type="text" placeholder="请输入其他借款渠道信息" class="otherChannelsInfo"/>
+
+                              <input type="hidden"  id="otherChannels" value="0"/>
+							  <select id="otherChannelsInfo" onmousedown="this.size=7" style="position: absolute;z-index: 1;width:140px;"
+							  onblur="this.size=0" onchange="this.size=0" class="otherChannelsInfo">
+  								<option value ="">--其他渠道借款信息--</option>
+  								<option value="1">无借款</option>
+  								<option value="2">有，已结清</option>
+  								<option value="3">有，未结清</option>
+
+							</select>
+
                  </div>
                   <div class="col-md-3">
                                 <label class="col-sm-2 control-label">银行卡号：</label>
