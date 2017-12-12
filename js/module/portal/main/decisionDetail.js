@@ -45,6 +45,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
 
                 me.find("#taskId").text(interfaceRecordEntity.taskId)
                 me.find("#decisionResult").text(decisionType)
+                me.find("#decisionTimeUsed").text(interfaceRecordEntity.timeUsed)
                 me.find("#name").text(queryParams.name)
                 me.find("#idCard").text(interfaceRecordEntity.idCard)
                 me.find("#mobile").text(interfaceRecordEntity.mobile)
@@ -58,13 +59,27 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 me.find("#industry").text(queryParams.industry)
                 me.find("#companyAddr").text(queryParams.companyAddr)
                 me.find("#company").text(queryParams.company)
-                if(decisionType=3)
-                {
-                    me.find("#decisionError").show();
-                    me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
-                }else{
-                    me.find("#decisionStep").show();
-                }
+                    if(me.parameter.decisionType==3)
+                    {
+                        me.find("#decisionError").show();
+                        me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
+                    }
+                    if(me.parameter.decisionType==1) {
+                        var hits = "";
+                        var results = JSON.parse(interfaceRecordEntity.results);
+                        var steps = results.step;
+                        for (var i = 0; i < steps.length; i++) {
+                            var hitRules = steps[i].rule.hitRules;
+                            for (var i = 0; i < hitRules.length; i++) {
+                                hits = hits + '<p>命中规则：' + hitRules[i].ruleId + '：' + hitRules[i].ruleDescribe + '</p>';
+                            }
+                        }
+                        me.find("#decisionHit").show();
+                        me.find("#decisionHit").find(".panel-body").html(hits);
+                    }
+                        //所有决策步骤输出
+                        me.find("#decisionStep").show();
+                        me.getDecisionSteps();
             } else {
                 alert(result.data.message);
             }
@@ -128,6 +143,49 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
         );
     };
 
+
+    decisionDetail.prototype.getDecisionSteps = function () {
+        var me = this;
+        var url = "/vicdes/getDecisionSteps?taskId="+me.parameter.taskId+"&interfaceParentType=ruleEngine";
+        requestUtil.get(url).then(function(result) {
+                var steps  =result.data;
+                var stepsHtml ="";
+                for(var i=0;i<steps.length;i++)
+                {
+                    var interfaceRecordEntity = steps[i].interfaceRecordEntity;
+                    var results = JSON.parse(interfaceRecordEntity.results);
+                    if(interfaceRecordEntity.state ==2)
+                    {
+                        //判断是否通过
+                        var icon = "ok";
+                        var iconName = "通过";
+
+                        if(results.totalScore>0)
+                        {
+                             icon = "remove";
+                            iconName = "不通过";
+                        }
+                        stepsHtml +='<div class="hortree-branch">'+
+                            '<div class="hortree-entry">'+
+                            '<div class="hortree-label">执行规则：'+interfaceRecordEntity.interfaceType+'</div>'+
+                            '<div class="hortree-label"><i class="icon-circle-'+icon+'" aria-hidden="true"></i>'+iconName+'</div>'+
+                            '<div class="hortree-label">用时：'+interfaceRecordEntity.timeUsed+'毫秒(ms)</div>'+
+                            '</div>'+
+                            '</div>';
+                    }else{
+                        stepsHtml +='<div class="hortree-branch">'+
+                            '<div class="hortree-entry">'+
+                            '<div class="hortree-label">执行规则：'+interfaceRecordEntity.interfaceType+'</div>'+
+                            '<div class="hortree-label"><i class="icon-warning-sign" aria-hidden="true"></i>异常</div>'+
+                            '<div class="hortree-label">用时：'+interfaceRecordEntity.timeUsed+'毫秒(ms)</div>'+
+                            '</div>'+
+                            '</div>';
+                    }
+
+                }
+               me.find("#decisionStep").find(".panel-body").html(stepsHtml);
+        });
+    }
     //清空数据
     decisionDetail.prototype.clearList = function () {
         var me = this;
