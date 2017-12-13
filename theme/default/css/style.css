@@ -14,7 +14,7 @@ html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-ad
 .no-opacity .wrapper-dropdown-3.active .dropdown, .no-pointerevents .wrapper-dropdown-3.active .dropdown { display: block; }
 .page-group {box-sizing: border-box;width: 100%}
 .dangerbg{ background-color:red}.successbg{ background-color:green}.bluebg{ background-color:blue}
-
+.bold{font-weight:bold}
 /*首页*/
 /*header*/
 .page-container{width:100%; margin:75px auto}

@@ -11,6 +11,7 @@
 				   <div class="row">
 						 <div class="col-md-4"> <i>订单号</i>：<span id="taskId"></span></div>
                          <div class="col-md-3"><i>决策结果</i>：<span id="decisionResult" style="color:red">REJECT</span></div>
+                         <div class="col-md-3"><i>决策耗时</i>：<span id="decisionTimeUsed" style="color:red"></span>ms</div>
 					</div>
 					<div class="row">
                          <div class="col-md-3"><i>借款期限</i>：<span id="loanTerm"></span></div>
@@ -41,9 +42,16 @@
 				</div>
 			</div>
 			<div class="kebiao-con">
-                <div class="panel panel-default" id="decisionStep"  style="display:none">
-                  <div class="panel-heading">规则集信息</div>
-                  <div class="panel-body"  style="height:140px">
+			    <div class="panel panel-default" id="decisionHit"  style="min-height:100px;display:none">
+                  <div class="panel-heading bold">命中规则</div>
+                  <div class="panel-body" style="color:red">
+
+                  </div>
+                </div>
+
+                <div class="panel panel-default" id="decisionStep"  style="min-height:100px;display:none">
+                  <div class="panel-heading bold">规则集执行信息</div>
+                  <div class="panel-body"  >
                         <div class="hortree-wrapper">
                           <div class="hortree-branch">
                                 <div class="hortree-entry">
@@ -82,15 +90,15 @@
                 </div>
 
                 <div class="panel panel-default" id="decisionError"  style="height:100px;;display:none">
-                  <div class="panel-heading">决策异常（有异常时在此显示）</div>
+                  <div class="panel-heading bold">决策异常（有异常时在此显示）</div>
                   <div class="panel-body"  style="height:100px;">
 
                   </div>
                 </div>
 
                 <div class="panel panel-default">
-                  <div class="panel-heading">第三方数据信息 </div>
-                  <div class="panel-body" id="interface"  style="height:700px;">
+                  <div class="panel-heading bold">第三方数据信息 </div>
+                  <div class="panel-body" id="interface"  style="min-height:500px;">
 				    <table id="tb_query_list" class="evaluate-table"></table>
                   </div>
                 </div>

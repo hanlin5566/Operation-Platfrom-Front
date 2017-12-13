@@ -45,6 +45,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
 
                 me.find("#taskId").text(interfaceRecordEntity.taskId)
                 me.find("#decisionResult").text(decisionType)
+                me.find("#decisionTimeUsed").text(interfaceRecordEntity.timeUsed)
                 me.find("#name").text(queryParams.name)
                 me.find("#idCard").text(interfaceRecordEntity.idCard)
                 me.find("#mobile").text(interfaceRecordEntity.mobile)
@@ -58,13 +59,31 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 me.find("#industry").text(queryParams.industry)
                 me.find("#companyAddr").text(queryParams.companyAddr)
                 me.find("#company").text(queryParams.company)
-                if(decisionType=3)
-                {
-                    me.find("#decisionError").show();
-                    me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
-                }else{
-                    me.find("#decisionStep").show();
-                }
+                var stepsHtml ="";
+                    if(me.parameter.decisionType==3)
+                    {
+                        me.find("#decisionError").show();
+                        me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
+                    }
+                    if(me.parameter.decisionType==1) {
+                        var hits = "";
+                        var results = JSON.parse(interfaceRecordEntity.results);
+                        var steps = results.step;
+                        for (var i = 0; i < steps.length; i++) {
+                            var hitRules = steps[i].rule.hitRules;
+                            var step = steps[i];
+                            for (var i = 0; i < hitRules.length; i++) {
+                                hits = hits + '<p>命中规则：' + hitRules[i].ruleId + '：' + hitRules[i].ruleDescribe + '</p>';
+                            }
+                            stepsHtml+=me.getDecisionSteps(step);
+
+                        }
+                        me.find("#decisionHit").show();
+                        me.find("#decisionHit").find(".panel-body").html(hits);
+                    }
+                        //所有决策步骤输出
+                        me.find("#decisionStep").show();
+                        me.find("#decisionStep").find(".panel-body").html(stepsHtml);
             } else {
                 alert(result.data.message);
             }
@@ -128,6 +147,39 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
         );
     };
 
+
+    decisionDetail.prototype.getDecisionSteps = function (step) {
+                 var me = this;
+                var stepsHtml ="";
+                    if(step.success)
+                    {
+                        //判断是否通过
+                        var icon = "ok";
+                        var iconName = "通过";
+                        if(parseInt(step.rule.totalScore)>0)
+                        {
+                             icon = "remove";
+                            iconName = "不通过";
+                        }
+                        stepsHtml ='<div class="hortree-branch" data-ruleid="'+step.ruleId+'">'+
+                            '<div class="hortree-entry">'+
+                            '<div class="hortree-label">执行规则：'+step.ruleGroup+'</div>'+
+                            '<div class="hortree-label"><i class="icon-circle-'+icon+'" aria-hidden="true"></i>'+iconName+'</div>'+
+                            '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
+                            '</div>'+
+                            '</div>';
+                    }else{
+                        stepsHtml ='<div class="hortree-branch" data-ruleid="'+step.ruleId+'">'+
+                            '<div class="hortree-entry">'+
+                            '<div class="hortree-label">执行规则：'+step.ruleGroup+'</div>'+
+                            '<div class="hortree-label"><i class="icon-warning-sign" aria-hidden="true"></i>异常</div>'+
+                            '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
+                            '</div>'+
+                            '</div>';
+                    }
+
+                return stepsHtml;
+            }
     //清空数据
     decisionDetail.prototype.clearList = function () {
         var me = this;
