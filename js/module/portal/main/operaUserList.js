@@ -178,10 +178,12 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
     OperaUserList.prototype.bindEvent = function() {
 		var me = this;
 		me.find("#remove").click(function() {
+			alert("del");
 			var selections = $('#tb_var').bootstrapTable('getSelections');
 			var varIds = new Array();
 			for(var i in selections){
-				varIds.push(selections[i].varId);
+				alert(selections[i].id);
+				varIds.push(selections[i].id);
             } 
 			var url = "msg";
 			requestUtil.del(url, varIds).then(function(result) {

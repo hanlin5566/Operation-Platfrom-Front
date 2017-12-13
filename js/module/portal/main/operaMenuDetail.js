@@ -40,7 +40,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		var me = this;
 		var url = "system/MenuInfo";
         var menuName = me.find(".menuName").val();
-        var menuUrl = me.find(".menuUrl").val();
+        var menuCode = me.find(".menuCode").val();
 
 		var usid =  me.parameter.useId;
 
@@ -50,7 +50,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 			alert('请填写菜单名称');
 			return;
 		}
-		if (menuUrl.length <= 0) {
+		if (menuCode.length <= 0) {
             alert('请填写菜单地址');
             //me.find(".userPwd").focus();
             return;
@@ -58,7 +58,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 
 		var data = {
 			"moduleTitle" : menuName,
-			"moduleHref" : menuUrl,
+			"moduleCode" : menuCode,
             "id":usid
 		};
 		if(state == 'SAVED')
@@ -237,8 +237,9 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
     // 初始化ace
     OperaMenuDetail.prototype.initAceEditor = function() {
         var me = this;
+        alert("菜单初始化")
         //如果有ID则填充内容
-        if(me.parameter.useId){
+        if(me.parameter.menuId){
             var url = "/manageUser/"+me.parameter.useId;
             requestUtil.get(url,null).then(function(result) {
                 if (result.code == 200) {

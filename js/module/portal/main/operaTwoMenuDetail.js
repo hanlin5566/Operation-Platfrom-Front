@@ -40,7 +40,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		var me = this;
 		var url = "system/MenuInfo";
         var menuName = me.find(".menuName").val();
-        var menuUrl = me.find(".menuUrl").val();
+        var menuUrl = me.find(".menuCode").val();
         var parentId = me.find(".belongMenu").val();
         alert("父菜单:"+parentId);
 		var usid =  me.parameter.useId;
@@ -63,7 +63,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 
 		var data = {
 			"moduleTitle" : menuName,
-			"moduleHref" : menuUrl,
+			"moduleCode" : menuUrl,
             "parentId":parentId,
             "id":usid
 		};

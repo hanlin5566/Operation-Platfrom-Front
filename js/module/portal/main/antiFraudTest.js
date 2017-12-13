@@ -24,7 +24,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
             "relativeMobile","nonRelativeType","nonRelativeName","nonRelativeMobile","loanTerm",
             "loanAmount","loanUsage","otherChannelsInfo","bankCard","idCard","name","mobile"];
         //var a = ["name","mobile"];
-         for(var x in a){
+        /* for(var x in a){
              var st = "."+a[x];
              //alert(me.find(st).val());
              if (me.find(st).val().length <= 0) {
@@ -32,7 +32,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
                  me.find(st).focus();
                  return;
              }
-        }
+        }*/
 
 		var data = {
 			"taskId" : me.find(".taskId").val(),

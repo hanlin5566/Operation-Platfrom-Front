@@ -88,7 +88,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		if(state == 'SAVED')
 		{
 		    alert("save");
-            url = "/manageUser/addUserInfo999";
+            url = "/manageUser/addUserInfo";
             alert(data.tos);
             requestUtil.post(url, data).then(function(result) {
                 if (result.code == 200) {
