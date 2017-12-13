@@ -32,7 +32,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
     decisionDetail.prototype.renderPage = function () {
         var me = this;
         //决策详情
-        var url = "/vicdes/getDecisionDetail?taskId="+me.parameter.taskId;
+        var url = "/vicdes/getDecisionDetail?logId="+me.parameter.logId;
         requestUtil.get(url).then(function(result) {
             if (result.code == 200) {
                 var interfaceRecordEntity = result.data.interfaceRecordEntity;
@@ -43,11 +43,12 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 if(me.parameter.decisionType=="2") decisionType =   "通过";
                 if(me.parameter.decisionType=="3") decisionType =   "异常";
 
-                me.find("#taskId").text(interfaceRecordEntity.taskId)
+                me.find("#taskId").text(queryParams.taskId)
                 me.find("#decisionResult").text(decisionType)
+                me.find("#decisionTimeUsed").text(interfaceRecordEntity.timeUsed)
                 me.find("#name").text(queryParams.name)
-                me.find("#idCard").text(interfaceRecordEntity.idCard)
-                me.find("#mobile").text(interfaceRecordEntity.mobile)
+                me.find("#idCard").text(queryParams.idCard)
+                me.find("#mobile").text(queryParams.mobile)
                 me.find("#loanTerm").text(queryParams.loanTerm)
                 me.find("#loanAmount").text(queryParams.loanAmount)
                 me.find("#loanUsage").text(queryParams.loanUsage)
@@ -58,13 +59,34 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 me.find("#industry").text(queryParams.industry)
                 me.find("#companyAddr").text(queryParams.companyAddr)
                 me.find("#company").text(queryParams.company)
-                if(decisionType=3)
-                {
-                    me.find("#decisionError").show();
-                    me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
-                }else{
-                    me.find("#decisionStep").show();
-                }
+                var stepsHtml ="";
+                    if(me.parameter.decisionType==3)
+                    {
+                        me.find("#decisionError").show();
+                        me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
+                    }
+
+                        var hits = "";
+                        var results = JSON.parse(interfaceRecordEntity.results);
+                        var steps = results.step;
+                        for (var i = 0; i < steps.length; i++) {
+                            var step = steps[i];
+                            if(step.success)
+                            {
+                                var hitRules = steps[i].rule.hitRules;
+                                for (var k = 0; k < hitRules.length; k++) {
+                                    hits = hits + '<p>命中规则：' + hitRules[k].ruleId + '：' + hitRules[k].ruleDescribe + '</p>';
+                                }
+                            }
+                            stepsHtml+=me.getDecisionSteps(step);
+                        }
+                        me.find("#decisionHit").show();
+                        if(hits=="") hits ="无命中规则";
+                        me.find("#decisionHit").find(".panel-body").html(hits);
+
+                        //所有决策步骤输出
+                        me.find("#decisionStep").show();
+                        me.find("#decisionStep").find(".panel-body").html(stepsHtml);
             } else {
                 alert(result.data.message);
             }
@@ -128,6 +150,38 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
         );
     };
 
+
+    decisionDetail.prototype.getDecisionSteps = function (step) {
+                 var me = this;
+                var stepsHtml ="";
+                    if(step.success)
+                    {
+                        //判断是否通过
+                        var icon = "ok";
+                        var iconName = "通过";
+                        if(parseInt(step.rule.totalScore)>0)
+                        {
+                             icon = "remove";
+                            iconName = "不通过";
+                        }
+                        stepsHtml ='<div class="hortree-branch" data-ruleid="'+step.ruleId+'">'+
+                            '<div class="hortree-entry">'+
+                            '<div class="hortree-label">执行规则集：'+step.ruleGroup+'</div>'+
+                            '<div class="hortree-label"><i class="icon-circle-'+icon+'" aria-hidden="true"></i>'+iconName+'</div>'+
+                            '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
+                            '</div>'+
+                            '</div>';
+                    }else{
+                        stepsHtml ='<div class="hortree-branch" data-ruleid="'+step.ruleId+'">'+
+                            '<div class="hortree-entry">'+
+                            '<div class="hortree-label">执行规则集：'+step.ruleGroup+'</div>'+
+                            '<div class="hortree-label"><i class="icon-warning-sign" aria-hidden="true"></i>异常</div>'+
+                            '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
+                            '</div>'+
+                            '</div>';
+                    }
+                return stepsHtml;
+            }
     //清空数据
     decisionDetail.prototype.clearList = function () {
         var me = this;

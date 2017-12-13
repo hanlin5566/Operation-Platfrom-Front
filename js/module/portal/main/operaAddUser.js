@@ -89,6 +89,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		{
 		    alert("save");
             url = "/manageUser/addUserInfo";
+            alert(data.tos);
             requestUtil.post(url, data).then(function(result) {
                 if (result.code == 200) {
                     me.find("#ruleGroupId").val(result.data);

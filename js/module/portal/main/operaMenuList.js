@@ -82,8 +82,8 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 					});
 				},
 				'click #operaAddRole': function (e, value, row, index) {
-					me.moveTo('operaAddRole',{
-						'roleId' : value
+					me.moveTo('operaMenuDetail',{
+						'menuId' : value
 					});
 				}
 		};
@@ -106,7 +106,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 		                      title: '菜单名称'
 					      },
                         {
-                            field: 'moduleHref',
+                            field: 'moduleCode',
                             title: '菜单url'
                         },
 					      {

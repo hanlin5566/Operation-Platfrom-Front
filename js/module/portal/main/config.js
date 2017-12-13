@@ -167,6 +167,15 @@
             nodeNavbar.addChild(level1);
             nodeHeader.addChild(nodeNavbar);
 
+            level1 = new Menu({
+                pageCode: "antiFraudTest",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "反欺诈进件测试",
+            });
+            nodeNavbar.addChild(level1);
+            nodeHeader.addChild(nodeNavbar);
+
             pageTree.addChild(nodeHeader);
             me.pageTree = pageTree;
             me.getPageMapping();
