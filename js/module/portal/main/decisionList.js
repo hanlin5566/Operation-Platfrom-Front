@@ -84,6 +84,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
             'click #decisionDetail': function (e, value, row, index) {
                 me.moveTo('decisionDetail',{
                     'taskId' : row.taskId,
+                    'logId' : row.logId,
                     'decisionType' : row.decisionType
                 });
             }

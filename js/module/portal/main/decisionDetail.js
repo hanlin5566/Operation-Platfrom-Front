@@ -32,7 +32,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
     decisionDetail.prototype.renderPage = function () {
         var me = this;
         //决策详情
-        var url = "/vicdes/getDecisionDetail?taskId="+me.parameter.taskId;
+        var url = "/vicdes/getDecisionDetail?logId="+me.parameter.logId;
         requestUtil.get(url).then(function(result) {
             if (result.code == 200) {
                 var interfaceRecordEntity = result.data.interfaceRecordEntity;
@@ -177,7 +177,6 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                             '</div>'+
                             '</div>';
                     }
-
                 return stepsHtml;
             }
     //清空数据
