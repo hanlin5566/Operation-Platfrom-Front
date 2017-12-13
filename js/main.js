@@ -94,23 +94,7 @@ function enterApp(appVersion) {
 		
 		requirejs(['portal/main/initializer']);
 		
-	  } else if (appCode == 'analytics_quesnaire') { // 评价分析
-		
-		requirejs(['portal/analytics_quesnaire/initializer']);
-		
-	  } else if (appCode == 'analytics_score') { // 学业水平
-		
-		requirejs(['portal/analytics_score/initializer']);
-		
-	  } else if (appCode == 'personal_center') { // 个人中心
-		
-		requirejs(['portal/personal_center/initializer']);
-
-	  } else if (appCode == 'system_manage') { // 系统管理
-		
-		requirejs(['portal/system_manage/initializer']);
-		
-	  }else {
+	  } else {
 		// TODO 去错误页面
 	  }
 	  
