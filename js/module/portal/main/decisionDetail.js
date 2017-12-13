@@ -43,12 +43,12 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 if(me.parameter.decisionType=="2") decisionType =   "通过";
                 if(me.parameter.decisionType=="3") decisionType =   "异常";
 
-                me.find("#taskId").text(interfaceRecordEntity.taskId)
+                me.find("#taskId").text(queryParams.taskId)
                 me.find("#decisionResult").text(decisionType)
                 me.find("#decisionTimeUsed").text(interfaceRecordEntity.timeUsed)
                 me.find("#name").text(queryParams.name)
-                me.find("#idCard").text(interfaceRecordEntity.idCard)
-                me.find("#mobile").text(interfaceRecordEntity.mobile)
+                me.find("#idCard").text(queryParams.idCard)
+                me.find("#mobile").text(queryParams.mobile)
                 me.find("#loanTerm").text(queryParams.loanTerm)
                 me.find("#loanAmount").text(queryParams.loanAmount)
                 me.find("#loanUsage").text(queryParams.loanUsage)
@@ -65,22 +65,25 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                         me.find("#decisionError").show();
                         me.find("#decisionError").find(".panel-body").html(interfaceRecordEntity.errorReturn);
                     }
-                    if(me.parameter.decisionType==1) {
+
                         var hits = "";
                         var results = JSON.parse(interfaceRecordEntity.results);
                         var steps = results.step;
                         for (var i = 0; i < steps.length; i++) {
-                            var hitRules = steps[i].rule.hitRules;
                             var step = steps[i];
-                            for (var i = 0; i < hitRules.length; i++) {
-                                hits = hits + '<p>命中规则：' + hitRules[i].ruleId + '：' + hitRules[i].ruleDescribe + '</p>';
+                            if(step.success)
+                            {
+                                var hitRules = steps[i].rule.hitRules;
+                                for (var k = 0; k < hitRules.length; k++) {
+                                    hits = hits + '<p>命中规则：' + hitRules[k].ruleId + '：' + hitRules[k].ruleDescribe + '</p>';
+                                }
                             }
                             stepsHtml+=me.getDecisionSteps(step);
-
                         }
                         me.find("#decisionHit").show();
+                        if(hits=="") hits ="无命中规则";
                         me.find("#decisionHit").find(".panel-body").html(hits);
-                    }
+
                         //所有决策步骤输出
                         me.find("#decisionStep").show();
                         me.find("#decisionStep").find(".panel-body").html(stepsHtml);
@@ -163,7 +166,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                         }
                         stepsHtml ='<div class="hortree-branch" data-ruleid="'+step.ruleId+'">'+
                             '<div class="hortree-entry">'+
-                            '<div class="hortree-label">执行规则：'+step.ruleGroup+'</div>'+
+                            '<div class="hortree-label">执行规则集：'+step.ruleGroup+'</div>'+
                             '<div class="hortree-label"><i class="icon-circle-'+icon+'" aria-hidden="true"></i>'+iconName+'</div>'+
                             '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
                             '</div>'+
@@ -171,7 +174,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                     }else{
                         stepsHtml ='<div class="hortree-branch" data-ruleid="'+step.ruleId+'">'+
                             '<div class="hortree-entry">'+
-                            '<div class="hortree-label">执行规则：'+step.ruleGroup+'</div>'+
+                            '<div class="hortree-label">执行规则集：'+step.ruleGroup+'</div>'+
                             '<div class="hortree-label"><i class="icon-warning-sign" aria-hidden="true"></i>异常</div>'+
                             '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
                             '</div>'+
