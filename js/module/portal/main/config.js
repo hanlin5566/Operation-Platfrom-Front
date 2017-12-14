@@ -139,6 +139,13 @@
                 layoutId: "layout_manage",
                 label: "决策列表",
             });
+            level2 = new Menu({
+                pageCode: "ruleExecu",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "规则集执行信息"
+            });
+            level1.addChild(level2);
             nodeNavbar.addChild(level1);
             level2 = new Menu({
                 pageCode: "decisionDetail",
@@ -164,6 +171,13 @@
                 layoutId: "layout_manage",
                 label: "访问列表",
             });
+            level2 = new Menu({
+                pageCode: "staticQueryDetail",
+                positionId: "layout_manage",
+                layoutId: "layout_manage",
+                label: "详情"
+            });
+            level1.addChild(level2);
             nodeNavbar.addChild(level1);
             nodeHeader.addChild(nodeNavbar);
 
