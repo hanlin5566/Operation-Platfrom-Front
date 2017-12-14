@@ -6,6 +6,7 @@ define(['util/sessionUtil'], function(sessionUtil) {
     this.KEY_APP_CONST = "app_const";
     this.KEY_LAST_LOGIN_ID = "last_login_id";
     this.KEY_CART = "cart_";
+    this.KEY_MENU = "menu_";
     this.KEY_SEARCH_CONDATION = "search_condation_" + appCode;
     this.KEY_LOGINVO = "data_user_loginvo";
   };

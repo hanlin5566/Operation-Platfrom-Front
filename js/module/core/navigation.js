@@ -152,8 +152,8 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 			callback();
 			return;
 		}
-		
-		// 如果存在cookie
+		//TODO:只判断了，localstroage和sessionstroage，并未判断cooike。如果需要单点登录工程，需要判断cooike并请求后端服务，查看是否在redis中存在。
+		// 如果存在localstroage
 		var loginVo = dataUtil.get(dataUtil.KEY_LOGINVO);
 		//允许除了admin外的角色登录|| loginVo.userInfo.userType.name != 'ADMIN'
 		if (!loginVo) {
@@ -190,8 +190,14 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 		var para = utils.getUrlParam();
 		if (!para.pageCode) {
 			para.pageCode = this.config.DEFAULT_PAGE;
+			//默认页为空，则取local的第一条数据
+			if(!para.pageCode){
+				menu = dataUtil.get(dataUtil.KEY_MENU);
+				if(menu && menu[0].subMenuList){
+					para.pageCode = menu[0].subMenuList[0].moduleCode;
+				}
+			}
 		}
-		
 		this.config.getPageInfo(para.pageCode)
 		.then(function(menu) {
 			me.validateAuth_(menu, function() {

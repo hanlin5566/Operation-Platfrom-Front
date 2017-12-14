@@ -2,7 +2,6 @@ define(['util/requestUtil','util/utils', 'util/sessionUtil', 'util/dataUtil', 'u
   function(requestUtil,utils, sessionUtil, dataUtil, codeUtil){
   
   var LoginLogic = {};
-  
   /**
    * 登录验证
    * 
@@ -15,6 +14,10 @@ define(['util/requestUtil','util/utils', 'util/sessionUtil', 'util/dataUtil', 'u
     //清空
     return requestUtil.post('/platfrom/userlogin', para).then(function(result) {
       if (result.code == "200") {
+    	//TODO:初始化权限菜单
+    	
+    	dataUtil.set(dataUtil.KEY_MENU,result.data.sysMenu);
+    	delete result.data["sysMenu"];
         dataUtil.set(dataUtil.KEY_LOGINVO, result.data); 
         sessionUtil.set(sessionUtil.KEY_USER_INFO, result.data); 
         return location.href = "./main.html";

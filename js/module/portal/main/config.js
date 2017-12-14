@@ -1,235 +1,16 @@
-﻿define(["model/menu", "core/navigation", "util/utils", "util/requestUtil"],
-    function (Menu, navigation, utils, requestUtil) {
+﻿define(["model/menu", "core/navigation", "util/utils", "util/requestUtil",'util/dataUtil'],
+    function (Menu, navigation, utils, requestUtil,dataUtil) {
 
         var Config = function () {
             var me = this;
             navigation.registerConfig(me);
 
-            me.DEFAULT_PAGE = "operaVarList";
-
-            // 页面列表，这里配置多于实际页面数，例如消息列表页分为三种pageCode但是共用一个js文件，所以scriptPath相同pageCode不同
-            // 如果scriptPath不设置，默认为和pageCode一致
+            me.DEFAULT_PAGE = "";
             var pageTree = new Menu({
-                pageCode: "__ROOT__"
-            });
-
-            /**
-             * nodeHeader ：主header
-             * nodeNavbar : 左侧导航
-             * level1 : 一级页面
-             * level2 : 二级页面
-             * level3 : 三级页面
-             */
-            /**************变量管理*****************/
-            var nodeHeader = new Menu({
-                pageCode: "var_center",
-                label: "变量管理",
-                isMenu: true
-            });
-            var nodeNavbar = new Menu({
-                pageCode: "var_center_main",
-                isMenu: true,
-            });
-            level1 = new Menu({
-                pageCode: "operaVarList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "变量管理"
-            });
-            level2 = new Menu({
-                pageCode: "operaVarDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "衍生变量详情"
-            });
-            level1.addChild(level2);
-            nodeNavbar.addChild(level1);
-            //设置一个新Menu
-            level1 = new Menu({
-                pageCode: "operaVarGroupList",//js 文件名 模块
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "变量源管理"
-            });
-            nodeNavbar.addChild(level1);//右侧导航显示
-            level2 = new Menu({// 模块子页面
-                pageCode: "operaVarGroupDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "变量源详情"
-
-            });
-
-            level1.addChild(level2);//导航栏目下的子页面
-            nodeHeader.addChild(nodeNavbar);
-            pageTree.addChild(nodeHeader);
-
-            /**************规则管理*****************/
-            var nodeHeader = new Menu({
-                pageCode: "rule_center",
-                label: "规则管理",
-                isMenu: true
-            });
-            var nodeNavbar = new Menu({
-                pageCode: "var_center_main",
-                isMenu: true,
-            });
-            level1 = new Menu({
-                pageCode: "operaRuleGroup",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "规则组管理"
-            });
-            level11 = new Menu({
-                pageCode: "operaRuleGroupDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "规则组开发"
-            });
-            level1.addChild(level11);
-            nodeNavbar.addChild(level1);
-
-            level2 = new Menu({
-                pageCode: "operaRuleList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "规则库管理"
-            });
-            level21 = new Menu({
-                pageCode: "operaRuleDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "规则开发"
-            });
-            level2.addChild(level21);
-            nodeNavbar.addChild(level2);
-            nodeHeader.addChild(nodeNavbar);
-            pageTree.addChild(nodeHeader);
-
-            /****************监控中心***************/
-            nodeHeader = new Menu({
-                pageCode: "monitor_center",
-                label: "监控中心",
-                isMenu: true
-            });
-            nodeNavbar = new Menu({
-                pageCode: "monitor_center_main",
-                isMenu: true
-            });
-            level1 = new Menu({
-                pageCode: "decisionList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "决策列表",
-            });
-            nodeNavbar.addChild(level1);
-            level2 = new Menu({
-                pageCode: "decisionDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "决策详情"
-            });
-            level1.addChild(level2);
-            nodeHeader.addChild(nodeNavbar);
-            level1 = new Menu({
-                pageCode: "staticQueryLog",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "访问统计",
-            });
-            nodeNavbar.addChild(level1);
-            nodeHeader.addChild(nodeNavbar);
-
-            nodeHeader.addChild(nodeNavbar);
-            level1 = new Menu({
-                pageCode: "staticQueryList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "访问列表",
-            });
-            nodeNavbar.addChild(level1);
-            nodeHeader.addChild(nodeNavbar);
-
-            level1 = new Menu({
-                pageCode: "antiFraudTest",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "反欺诈进件测试",
-            });
-            nodeNavbar.addChild(level1);
-            nodeHeader.addChild(nodeNavbar);
-
-            pageTree.addChild(nodeHeader);
+        		pageCode: "__ROOT__"
+        	});
             me.pageTree = pageTree;
             me.getPageMapping();
-
-            /**********系统管理***********/
-            nodeHeader = new Menu({
-                pageCode: "system_center",
-                label: "系统管理",
-                isMenu: true
-            });
-            nodeNavbar = new Menu({
-                pageCode: "system_center_main",
-                isMenu: true
-            });
-            level1 = new Menu({
-                pageCode: "operaUserList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "用户管理",
-            });
-            level2 = new Menu({
-                pageCode: "operaAddUser",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "添加用户"
-            });
-            level1.addChild(level2);
-            nodeNavbar.addChild(level1);
-            nodeHeader.addChild(nodeNavbar);
-            level1 = new Menu({
-                pageCode: "operaRoleList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "角色管理",
-            });
-            level2 = new Menu({
-                pageCode: "operaAddRole",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "添加角色"
-            });
-            nodeNavbar.addChild(level1);
-            level1.addChild(level2);
-
-            level1 = new Menu({
-                pageCode: "operaMenuList",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "菜单管理",
-            });
-            level2 = new Menu({
-                pageCode: "operaMenuDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "添加菜单"
-            });
-            level3 = new Menu({
-                pageCode: "operaTwoMenuDetail",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "添加二级菜单"
-            });
-            nodeNavbar.addChild(level1);
-            level1.addChild(level2);
-            level1.addChild(level3);
-
-            nodeHeader.addChild(nodeNavbar);
-            pageTree.addChild(nodeHeader);
-            me.pageTree = pageTree;
-            me.getPageMapping();
-
             // layout与页面对应关系，每个layout都显示哪些widget，粗匹配，如果涉及到西匹配，这个配置要移动到每个页面内部配置（pageList）
             me.layoutPageMapping = {
                 layout_work: [
@@ -268,7 +49,6 @@
         Config.prototype.getPageMapping = function () {
             var me = this;
             var pageMapping = me.pageTree.exportChildMapping();
-
             /***********通用页面追加，以下widget均不与地址栏pageCode产生交互************/
             pageMapping["header"] = new Menu({
                 // 上部菜单
@@ -283,57 +63,6 @@
                 positionId: "layout_navbar",
                 layoutId: "layout_work",
             });
-
-            pageMapping["workNavbar"] = new Menu({
-                // 我的工作导航
-                pageCode: "workNavbar",
-                positionId: "pageContainer_workNavbar",
-                layoutId: "layout_work",
-            });
-
-            pageMapping["messageNavbar"] = new Menu({
-                // 底部消息列表导航
-                pageCode: "messageNavbar",
-                positionId: "pageContainer_messageNavbar",
-                layoutId: "layout_work",
-            });
-
-            pageMapping["deployHomework"] = new Menu({
-                // 发布作业
-                pageCode: "deployHomework",
-                positionId: "pageContainer_workDeploy",
-                layoutId: "layout_work",
-            });
-
-            pageMapping["deployClassInform"] = new Menu({
-                // 发布班级消息
-                pageCode: "deployClassInform",
-                positionId: "pageContainer_workDeploy",
-                layoutId: "layout_work",
-            });
-
-            pageMapping["deployRequestLeave"] = new Menu({
-                // 提交请假
-                pageCode: "deployRequestLeave",
-                positionId: "pageContainer_workDeploy",
-                layoutId: "layout_work",
-            });
-
-            pageMapping["notice"] = new Menu({
-                // 右侧通知通告
-                pageCode: "notice",
-                positionId: "pageContainer_notice",
-                layoutId: "layout_work",
-            });
-
-            pageMapping["timetable"] = new Menu({
-                // 课程表
-                pageCode: "timetable",
-                positionId: "pageContainer_timetable",
-                layoutId: "layout_work",
-            });
-
-
             // 把page列表映射为Menu对象
             me.pageMapping = pageMapping;
         };
@@ -402,22 +131,56 @@
                 me.curPageList.push(widget);
             };
         };
-
-        Config.prototype.getAnalysisMenu = function (root, url) {
-            var me = this;
-            return $.get("../data/" + url + "/" + url + ".json")
-                .then(function (data) {
-                    if (typeof data !== 'object') {
-                        data = JSON.parse(data);
-                    }
-                    if (!data.success) {
-                        return;
-                    }
-
-                    me.concatAnalysisNavbar(root, url, data.data);
-                    me.getPageMapping();
+        
+        Config.prototype.setMenu = function(menu){
+        	// 页面列表，这里配置多于实际页面数，例如消息列表页分为三种pageCode但是共用一个js文件，所以scriptPath相同pageCode不同
+        	// 如果scriptPath不设置，默认为和pageCode一致
+        	
+        	//alert("inc");
+        	/**
+        	 * nodeHeader ：主header
+        	 * nodeNavbar : 左侧导航
+        	 * level1 : 一级页面
+        	 * level2 : 二级页面
+        	 * level3 : 三级页面
+        	 */
+        	var me = this;
+        	for(var h in  menu){
+                var parentMenu = menu[h].parentMenu;
+                //头部一级菜单
+                var nodeHeader = new Menu({
+                    pageCode: parentMenu.moduleCode,
+                    label: parentMenu.moduleTitle,
+                    isMenu: true
                 });
-        };
+                var nodeNavbar = new Menu({pageCode: parentMenu.moduleCode+"_main",isMenu: true});
+                for (var j in  menu[h].subMenuList){
+                    if(j == "0"){
+                        me.DEFAULT_PAGE = menu[h].subMenuList[j].moduleCode;
+                    }
+                    level1 = new Menu({
+                        pageCode: menu[h].subMenuList[j].moduleCode,
+                        positionId: "layout_manage",
+                        layoutId: "layout_manage",
+                        label: menu[h].subMenuList[j].moduleTitle
+                    });
+                    nodeNavbar.addChild(level1);//右侧导航显示
+                }
+                nodeHeader.addChild(nodeNavbar);
+                me.pageTree.addChild(nodeHeader);
+        	}
+        	me.getPageMapping();
+        }
+        
+        Config.prototype.getMenu = function(menu){
+        	var  url = "/platfrom/userSubMenu";
+        	var me = this;
+        	//同步请求菜单
+        	//url, param, skipValidation,useCache,async
+            requestUtil.post(url, null,null,null,false).then(function(result) {
+            	me.setMenu(result.data);
+            });
+        }
 
         Config.prototype.loadPage = function (pageCode, pageConfig, para, callback) {
             var me = this;
@@ -442,51 +205,6 @@
             });
         };
 
-        Config.prototype.concatAnalysisNavbar = function (root, prefix, data) {
-            var me = this;
-            root.isMenu = true;
-            var nodeNav = new Menu({
-                pageCode: prefix + "_group",
-                label: "评价分析",
-                isMenu: true
-            });
-            root.addChild(nodeNav);
-            for (var i = 0; i < data.length; i++) {
-                var d = data[i];
-                var c = d.children;
-                d.children = null;
-                d.pageCode = prefix + "_" + d.pageCode;
-
-                var menu = new Menu($.extend({
-                    // 底部消息-已完成作业
-                    scriptPath: prefix,
-                    positionId: "layout_manage",
-                    layoutId: "layout_manage",
-                }, d));
-
-                nodeNav.addChild(menu);
-                if (c && c.length) {
-                    me.concatAnalysisNavbarChild(menu, prefix, c);
-                }
-            }
-        };
-
-        Config.prototype.concatAnalysisNavbarChild = function (root, prefix, data) {
-            var me = this;
-            for (var i = 0; i < data.length; i++) {
-                var d = data[i];
-                d.pageCode = prefix + "_" + d.pageCode;
-                var menu = new Menu($.extend({
-                    // 底部消息-已完成作业
-                    scriptPath: prefix,
-                    positionId: "layout_manage",
-                    layoutId: "layout_manage",
-                }, d));
-
-                root.addChild(menu);
-            }
-        };
-
         Config.prototype.getMenuMapping = function (code) {
             var me = this;
             return me.layoutPageMapping[code];
@@ -495,29 +213,38 @@
         Config.prototype.getPageInfo = function (pageCode) {
             var me = this;
             var def = new $.Deferred();
+            //菜单未初始化则从local读取
+            if(me.pageTree.children.length == 0){
+            	sysMenu = dataUtil.get(dataUtil.KEY_MENU);
+            	me.setMenu(sysMenu);
+            }
             var page = me.pageMapping[pageCode];
             if (page && (!(page.isMenu && !page.children.length) || page.triggerCode)) {
-                return def.resolve(page).promise();
+            	return def.resolve(page).promise();
             }
-
-            var analysisMenu = "";
-            if (pageCode.indexOf("analysis_ques") > -1) {
-                analysisMenu = "analysis_ques";
-            } else if (pageCode.indexOf("analysis_exam") > -1) {
-                analysisMenu = "analysis_exam";
-            } else {
-                alert("config:error pageCode : " + pageCode);
-                return def.promise();
-            }
-
-            var root = me.pageMapping[analysisMenu];
-            me.getAnalysisMenu(root, analysisMenu)
-                .then(function () {
-                    def.resolve(me.pageMapping[pageCode]);
-                });
-
+        	alert("您无访问此页的权限！pageCode:" + pageCode);
+			window.location.href = requestUtil.setting.LOGIN_URI + "&type=skipauto";
             return def.promise();
         };
-
+        
+        
+        Config.prototype.getHeaderMenu = function () {
+            var me = this;
+            var def = new $.Deferred();
+            //菜单未初始化则从local读取
+            if(me.pageTree.children.length == 0){
+            	sysMenu = dataUtil.get(dataUtil.KEY_MENU);
+            	me.setMenu(sysMenu);
+            }
+            
+            var headerMenu = me.pageTree.children;
+            if (headerMenu && headerMenu.length > -1) {
+            	return def.resolve(headerMenu).promise();
+            }
+            alert("您无访问此页的权限！");
+			window.location.href = requestUtil.setting.LOGIN_URI + "&type=skipauto";
+            return def.promise();
+        };
+        
         return new Config();
     });

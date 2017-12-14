@@ -13,6 +13,13 @@ function( requestUtil, Base, sessionUtil, domUtil, config) {
 		this.renderMainContent("tpl_header");
 
 		var me = this;
+		config.getHeaderMenu().then(function(menus){
+			for(var i in menus){
+				var menu = menus[i];
+				var headerMenu = "<li pageCode="+menu.pageCode+"><a href=\"javascript:void(0)\">"+menu.label+"</a></li>";
+				me.find(".nav-content").append(headerMenu);
+			}
+		});
 
 		this.find(".nav-content li").on("click", function() {
 			var pageCode = $(this).attr("pageCode");
@@ -22,11 +29,9 @@ function( requestUtil, Base, sessionUtil, domUtil, config) {
 //			if ($(this).find("a").hasClass("active")) return;
 			$(this).find("a").addClass("active");
 			$(this).siblings().find("a.active").removeClass("active");
-			
 			config.getPageInfo(pageCode)
 			.then(function(page) {
 				page = page.getFirstLeafNode();
-				
 				me.moveTo(page.pageCode);
 			});
 		});
@@ -43,7 +48,6 @@ function( requestUtil, Base, sessionUtil, domUtil, config) {
 		config.getPageInfo(pageCode)
 		.then(function(page) {
 			var menu = page.getHeaderLevel();
-			
 			// 选中item
 			var $li = me.find(".nav-content li[pageCode=" + menu.pageCode + "]");
 			if (!$li.find("a").hasClass("active")) {
