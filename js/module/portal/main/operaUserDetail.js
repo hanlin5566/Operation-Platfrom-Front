@@ -1,20 +1,20 @@
 define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		'portal/main/config', '../../../lib/ace/ace','../../../lib/bootstrap.min','../../../lib/transfer'], function(requestUtil, Base,
 		sessionUtil, domUtil, config) {
-	var OperaAddUser = function() {
+	var operaUserDetail = function() {
 	};
 
 	var state ="UNKNOW";
-    OperaAddUser.prototype = new Base();
+    operaUserDetail.prototype = new Base();
 	// 页面初始化
-    OperaAddUser.prototype.create = function() {
+    operaUserDetail.prototype.create = function() {
 		var me = this;
-		me.renderMainContent("tpl_operaAddUser");
+		me.renderMainContent("tpl_operaUserDetail");
 		me.initAceEditor();
 		me.bindInitEvent();
 	};
 	//根据传入的状态设置右上角按钮文字及传入后台的内容
-    OperaAddUser.prototype.switchState = function(state) {
+    operaUserDetail.prototype.switchState = function(state) {
 		var me = this;
 		//点击详情时如果为已发布则置为只读
 		if ('PUBLISHED' == state) {
@@ -36,7 +36,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 		}
 	}
 	//提交内容
-    OperaAddUser.prototype.postContent = function(state) {
+    operaUserDetail.prototype.postContent = function(state) {
 		var me = this;
 		var url = "manageUser/addUserInfo";
         var userName = me.find(".userName").val();
@@ -141,7 +141,7 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 
 	};
 
-    OperaAddUser.prototype.bindInitEvent = function() {
+    operaUserDetail.prototype.bindInitEvent = function() {
 		var me = this;
 		me.find('.default-btn').on('click', function() {
             var x =  me.parameter.useId;
@@ -254,33 +254,33 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
     };
 
 	// 重新显示 绑定数据后绑定点击事件（暂时这么做）
-    OperaAddUser.prototype.show = function() {
+    operaUserDetail.prototype.show = function() {
 		var me = this;
 		me.renderPage();
 	};
 
-    OperaAddUser.prototype.renderPage = function() {
+    operaUserDetail.prototype.renderPage = function() {
 		var me = this;
 	};
 
 	// 清空数据
-    OperaAddUser.prototype.clearList = function() {
+    operaUserDetail.prototype.clearList = function() {
 		var me = this;
 	};
 
 	// 页面隐藏
-    OperaAddUser.prototype.hide = function() {
+    operaUserDetail.prototype.hide = function() {
 		var me = this;
 	};
 
 	// 页面弹窗
-    OperaAddUser.prototype.popupWindow = function() {
+    operaUserDetail.prototype.popupWindow = function() {
 		var me = this;
 
 	};
 
     // 初始化ace
-    OperaAddUser.prototype.initAceEditor = function() {
+    operaUserDetail.prototype.initAceEditor = function() {
         var me = this;
         //如果有ID则填充内容
         if(me.parameter.useId){
@@ -305,5 +305,5 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
     };
 
 
-	return new OperaAddUser();
+	return new operaUserDetail();
 })
