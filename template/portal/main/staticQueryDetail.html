@@ -1,0 +1,61 @@
+<script id="tpl_staticQueryList" type="text/x-jsrender">
+<div class="long-main-content">
+	<div class="long-main-title">
+		<h1>接口</h1>
+	</div>
+	<div class="teach-admin">
+		<div class="admin-con">
+			<div class="filter">
+				<p>单接口详情</p>
+				<div class="container">
+				 <input type="hidden" id="hidMsg"/>
+				 <input type="hidden" id="resultMsg"/>
+					 <div class="row">
+						 <div class="col-md-4"> <i>queryParam参数</i>：<span id="queryParam"></span><span id="buleBtn" style="color:blue"></span></div>
+
+					</div>
+					<div class="row">
+                         <div class="col-md-3"><i>开始时间</i>：<span id="beginTime"></span></div>
+						 <div class="col-md-3"><i>结束时间</i>：<span id="endTime"></span></div>
+
+					</div>
+
+					<div class="row">
+                         <div class="col-md-3"><i>状态</i>：<span id="state"></span></div>
+
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-5"><i>结果</i>：<span id="results"></span><span id="resultBtn" style="color:blue"></span></div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="kebiao-con">
+				<div id="toolbar">
+				</div>
+				<table id="tb_app_order_list" class="evaluate-table"></table>
+			</div>
+		</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">Modal title</h2>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+
+      <div class="modal-footer" style="text-align:center">
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+	</div>
+<div>
+</script>

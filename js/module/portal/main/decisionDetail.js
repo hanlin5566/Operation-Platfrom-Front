@@ -26,8 +26,8 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
     decisionDetail.prototype.create = function () {
         var me = this;
         me.renderMainContent("tpl_decisionDetail");
+        //me.bindEvent();
         me.renderPage();
-        me.bindEvent();
     };
 
     decisionDetail.prototype.renderPage = function () {
@@ -88,6 +88,8 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                         //所有决策步骤输出
                         me.find("#decisionStep").show();
                         me.find("#decisionStep").find(".panel-body").html(stepsHtml);
+                        me.bindEvent();
+
             } else {
                 alert(result.data.message);
             }
@@ -149,10 +151,12 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                 },
             }
         );
+
     };
 
 
     decisionDetail.prototype.getDecisionSteps = function (step) {
+        //alert(step.ruleGroup);
                  var me = this;
                 var stepsHtml ="";
                     if(step.success)
@@ -170,6 +174,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                             '<div class="hortree-label">执行规则集：'+step.ruleGroup+'</div>'+
                             '<div class="hortree-label"><i class="icon-circle-'+icon+'" aria-hidden="true"></i>'+iconName+'</div>'+
                             '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
+                            '<div class="hortree-label">'+'<a name="deciDetail" id="xxx" class="state-link" value="'+step.ruleId+'">详情</a></div>'+
                             '</div>'+
                             '</div>';
                     }else{
@@ -178,10 +183,13 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
                             '<div class="hortree-label">执行规则集：'+step.ruleGroup+'</div>'+
                             '<div class="hortree-label"><i class="icon-warning-sign" aria-hidden="true"></i>异常</div>'+
                             '<div class="hortree-label">用时：'+step.timeUse+'毫秒(ms)</div>'+
+                            '<div class="hortree-label">'+'<a name="deciDetail" id="xxx" class="state-link" value="'+step.ruleId+'">详情</a></div>'+
                             '</div>'+
                             '</div>';
                     }
                 return stepsHtml;
+
+
             }
     //清空数据
     decisionDetail.prototype.clearList = function () {
@@ -197,10 +205,34 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
     //页面点击
     decisionDetail.prototype.bindEvent = function () {
         var me = this;
+        //alert("we");
+      /* $("a[name='deciDetail']").click(function () {
+            alert("msg");
+        });*/
+       /* me.find("a[name='deciDetail']").click(function () {
+            alert("msg");
+            // me.renderPage()
+        });*/
 
-        me.find("a[name='searchBtn']").click(function () {
-            me.renderPage()
+
+        me.find("a[name='deciDetail']").click(function() {
+            var x = $(this).attr("value");
+
+            me.moveTo('ruleExecu',{
+                'id' : x
+            });
+            //me.find('#tb_query_list').bootstrapTable('refresh', me.queryParams);
         });
+
+           /* me.find("a[id='deciDetail']").click(function(){
+                alert("8")
+                });
+*/
+
+       /* $("#deciDetail").click(function () {
+            alert("rr");
+
+        });*/
 
     };
 
