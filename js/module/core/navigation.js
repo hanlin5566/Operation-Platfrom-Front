@@ -194,7 +194,8 @@ function(requestUtil, utils, codeUtil, domUtil, sessionUtil,
 			if(!para.pageCode){
 				menu = dataUtil.get(dataUtil.KEY_MENU);
 				if(menu && menu[0].subMenuList){
-					para.pageCode = menu[0].subMenuList[0].moduleCode;
+					 //TODO:拼装二级和三级页面，以后需要将三级页面也纳入管理范围。与config.js 163行有冗余代码，应该移到后端处理。
+					para.pageCode = menu[0].subMenuList[0].moduleCode+"List";
 				}
 			}
 		}

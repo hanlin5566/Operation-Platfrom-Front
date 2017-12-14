@@ -156,14 +156,22 @@
                 var nodeNavbar = new Menu({pageCode: parentMenu.moduleCode+"_main",isMenu: true});
                 for (var j in  menu[h].subMenuList){
                     if(j == "0"){
-                        me.DEFAULT_PAGE = menu[h].subMenuList[j].moduleCode;
+                        me.DEFAULT_PAGE = menu[h].subMenuList[j].moduleCode+"List";
                     }
+                    //TODO:拼装二级和三级页面，以后需要将三级页面也纳入管理范围。
                     level1 = new Menu({
-                        pageCode: menu[h].subMenuList[j].moduleCode,
+                        pageCode: menu[h].subMenuList[j].moduleCode+"List",
                         positionId: "layout_manage",
                         layoutId: "layout_manage",
                         label: menu[h].subMenuList[j].moduleTitle
                     });
+                    level2 = new Menu({
+                        pageCode: menu[h].subMenuList[j].moduleCode+"Detail",
+                        positionId: "layout_manage",
+                        layoutId: "layout_manage",
+                        label: menu[h].subMenuList[j].moduleTitle+"详情"
+                    });
+                    level1.addChild(level2);
                     nodeNavbar.addChild(level1);//右侧导航显示
                 }
                 nodeHeader.addChild(nodeNavbar);
