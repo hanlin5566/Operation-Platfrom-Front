@@ -61,14 +61,6 @@
             });
 
             level1.addChild(level2);//导航栏目下的子页面
-            level1 = new Menu({// 模块子页面
-                pageCode: "operaVarGroupTest",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "变量集测试"
-
-            });
-            nodeNavbar.addChild(level1);//右侧导航显示
             nodeHeader.addChild(nodeNavbar);
             pageTree.addChild(nodeHeader);
 
@@ -111,15 +103,6 @@
             });
             level2.addChild(level21);
             nodeNavbar.addChild(level2);
-
-            level2 = new Menu({
-                pageCode: "operaRulesTest",
-                positionId: "layout_manage",
-                layoutId: "layout_manage",
-                label: "规则集测试"
-            });
-            nodeNavbar.addChild(level2);
-
             nodeHeader.addChild(nodeNavbar);
             pageTree.addChild(nodeHeader);
 

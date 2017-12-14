@@ -18,6 +18,7 @@ define(['util/requestUtil', 'core/base', 'util/formatUtil',
         };
 
         temp.orderNo = me.parameter.taskId;
+        temp.logId = me.parameter.logId;
         return temp;
     };
 

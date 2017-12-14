@@ -1,5 +1,5 @@
-define(['util/logger', ],
-        function(logger) {
+define(['util/logger','util/sessionUtil', 'util/dataUtil'],
+        function(logger,sessionUtil,dataUtil) {
 
 	// 系统运维
 	var DOMAIN_main = "localhost/main";
@@ -14,11 +14,11 @@ define(['util/logger', ],
 
     var TEST_DOMAIN = false;
     var FRONT_DOMAIN = "";//需要在此处添加/
-            var SERVER_DOMAIN = document.domain;
-            var SERVER_PORT = document.location.port!=""?":"+document.location.port:"";
-            var SERVER_PROTOCOL = document.location.protocol;
-            var SERVER_URI = SERVER_PROTOCOL+"//" + SERVER_DOMAIN+SERVER_PORT +""+ FRONT_DOMAIN;
-            var LOGIN_URI = "./passport.html?pageCode=login";
+    var SERVER_DOMAIN = document.domain;
+    var SERVER_PORT = document.location.port!=""?":"+document.location.port:"";
+    var SERVER_PROTOCOL = document.location.protocol;
+    var SERVER_URI = SERVER_PROTOCOL+"//" + SERVER_DOMAIN+SERVER_PORT +""+ FRONT_DOMAIN;
+    var LOGIN_URI = "./passport.html?pageCode=login";
     var ERR_SECURITY_URI = "./err_security.html";
     var ERR_INTERNAL_URI = "./err_internal.html";
     var ERR_PAGE_NOT_FOUND_RUI = "./err_page_not_found.html";
@@ -167,9 +167,13 @@ define(['util/logger', ],
         }
 
         var code = Number(data.code);
-        if (code == 401) { // 登录超时 弹出登录对话框
-            openLoginDialog();
-            return false;
+        if (code == 502) { // 登录超时 弹出登录对话框
+        	alert("登录超时，请重新登录！")
+        	// 不存在到登录页
+			sessionUtil.clear(sessionUtil.KEY_USER_INFO);
+        	dataUtil.clear(dataUtil.KEY_LOGINVO);
+			window.location.href = LOGIN_URI + "&type=skipauto";
+            return;
         }
         else if (code == 403) { // 权限验证失败
             processErrorLink(code, ERR_SECURITY_URI);
@@ -190,16 +194,16 @@ define(['util/logger', ],
         }
     }
     
-    Export.ajax = function(url, param, method, skipValidation, useCache) {
+    Export.ajax = function(url, param, method, skipValidation, useCache,async) {
         var def = $.Deferred();
         var me = this;
 
-        me.ajaxInternal_(def, url, param, method, skipValidation, useCache);
+        me.ajaxInternal_(def, url, param, method, skipValidation, useCache,async);
         
         return def.promise();
     };
     
-    Export.ajaxInternal_ = function(newDef, url, param, method, skipValidation, useCache) {
+    Export.ajaxInternal_ = function(newDef, url, param, method, skipValidation, useCache,async) {
         if (url) {
             if (url.indexOf("http") == -1) {
                 url = SERVER_URI + url;
@@ -220,6 +224,7 @@ define(['util/logger', ],
             url: url,
             type: method.toUpperCase(),
             dataType: "json",
+            async: !!async,
             contentType: "application/json; charset=utf-8",
             data: param,
             cache: !!useCache,
@@ -238,7 +243,11 @@ define(['util/logger', ],
             }
         });
     };
-
+    
+    Export.post = function(url, param, skipValidation,useCache,async) {
+        return Export.ajax(url, param, 'POST', skipValidation, useCache,async);
+    };
+    
     Export.post = function(url, param, skipValidation) {
         return Export.ajax(url, param, 'POST', skipValidation);
     };

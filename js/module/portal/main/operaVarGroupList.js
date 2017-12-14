@@ -148,7 +148,7 @@ define([ 'util/requestUtil', 'core/base','util/formatUtil',
 		});
 		
 		me.find("a[name='searchBtn']").click(function() {
-			me.find('#tb_var').bootstrapTable('refresh', me.queryParams);
+			me.find('#tb_var_group').bootstrapTable('refresh', me.queryParams);
 		});
 		
 		me.find(".add").click(function() {

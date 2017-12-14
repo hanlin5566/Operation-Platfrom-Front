@@ -1,4 +1,4 @@
-define(['util/requestUtil'], function(requestUtil) {
+define(['util/requestUtil','util/sessionUtil', 'util/dataUtil'], function(requestUtil,sessionUtil,dataUtil) {
 
 	var defaultSetting = {
 			method : 'get', // 请求方式（*）
@@ -41,6 +41,20 @@ define(['util/requestUtil'], function(requestUtil) {
 	
 	var Table = function($table, setting) {
 		setting.url = requestUtil.setting.SERVER_URI + setting.url;
+		setting.responseHandler = function(res){
+			if (res.code == 502) { // 登录超时 弹出登录对话框
+	        	alert("登录超时，请重新登录！");
+	        	// 不存在到登录页
+				sessionUtil.clear(sessionUtil.KEY_USER_INFO);
+	        	dataUtil.clear(dataUtil.KEY_LOGINVO);
+				window.location.href = requestUtil.setting.LOGIN_URI + "&type=skipauto";
+	            return;
+	        }
+	         //在ajax获取到数据，渲染表格之前，修改数据源
+			 res.total = res.pageInfo.totalCount;
+			 res.rows = res.data;
+	         return res;
+	     };
 		return $table.bootstrapTable($.extend(defaultSetting, setting));
 	};
 

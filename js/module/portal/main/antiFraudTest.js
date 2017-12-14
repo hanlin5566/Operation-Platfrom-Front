@@ -17,23 +17,6 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
 	//提交内容
     antiFraudTest.prototype.postContent = function(state) {
         var me = this;
-        var a = ["taskId","applicationType","birthday","gender","race","idCardAddress",
-            "idCardValidDate","idCardLegality","thresholdsIdcard","thresholdsFace","idAttacked",
-            "education","maritalStatus","domicile","homeAddr","residenceLength","industry","companyAddr",
-            "workingHours","company","position","monthlyIncome","payrollDay","relativeType","relativeName",
-            "relativeMobile","nonRelativeType","nonRelativeName","nonRelativeMobile","loanTerm",
-            "loanAmount","loanUsage","otherChannelsInfo","bankCard","idCard","name","mobile"];
-        //var a = ["name","mobile"];
-        /* for(var x in a){
-             var st = "."+a[x];
-             //alert(me.find(st).val());
-             if (me.find(st).val().length <= 0) {
-                 alert("请填写必传参")
-                 me.find(st).focus();
-                 return;
-             }
-        }*/
-
 		var data = {
 			"taskId" : me.find(".taskId").val(),
 			"applicationType" : me.find(".applicationType").val(),
@@ -72,152 +55,92 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
             "loanUsage" : me.find(".loanUsage").val(),
             "otherChannelsInfo" : me.find(".otherChannelsInfo").val(),
             "bankCard" : me.find(".bankCard").val()
-
 		};
 		if(state == 'SAVED')
 		{
-		    //alert("save");
             url = "/antiFraud/test";
             requestUtil.post(url, data).then(function(result) {
                 if (result.code == 200) {
-                    me.find("#ruleGroupId").val(result.data.data.msg);
-                   /* alert(""+result.data.data.message+"-");
-                    var jc = "";
-                    jc ="决策信息："+result.data.data.message+"\n";
-
-
-                    var jcr = "";
-                    jcr ="决策结果：" +result.data.data.decisionResult+"\n";
-
-                    var jcscore = "";
-                    jcscore= "决策分数："+result.data.data.totalScore+"\n";
-
-                    var ruleHtml="";
-                    for(var h in result.data.data.step){
-                        alert("step:"+result.data.data.step[h].ruleGroup);
-                        ruleHtml += "规则集:"+result.data.data.step[h].ruleGroup;
-                    }*/
-
-                    me.find('#myModal').modal('show');
-                    me.find('#myModal').find(".modal-title").html("反欺诈测试成功");
-                    me.find('#myModal').find(".modal-body").html("反欺诈测试结果:"+result.data.data.message);
-                    me.find('#myModal').find(".modal-footer").html( '<a class="state-link" id="antiFraudDetail">查看反欺诈测试详情</a>');
-                    var reMsg="success";
-                    var decType =0;
-                    if (result.data.message!=reMsg){
-                        decType=3;
-                    }else {
-                        if (result.data.data.totalScore>0){
-                            decType=1;
+                    if(result.data.message!="success")
+                    {
+                        alert(result.data.message);
+                    }else{
+                        $('#myModal').modal('show');
+                        $('#myModal').find(".modal-title").html("反欺诈测试成功");
+                        $('#myModal').find(".modal-body").html("查看详情请点击以下链接");
+                        $('#myModal').find(".modal-footer").html( '<a class="state-link" id="antiFraudDetail">查看反欺诈测试详情</a>');
+                        me.bindInitEvent();
+                        console.log("here");
+                        var reMsg="success";
+                        var decType =0;
+                        if (result.data.message!=reMsg){
+                            decType=3;
                         }else {
-                            decType=2;
+                            if (result.data.data.totalScore>0){
+                                decType=1;
+                            }else {
+                                decType=2;
+                            }
                         }
+                        $("#decType").val(decType);
+                        $("#taskId").val(result.data.data.taskId);
+                        $("#logId").val(result.data.data.logId);
                     }
-                    $("#decType").val(decType);
-                    $("#taskId").val(result.data.data.taskId);
-                    //alert(decType);
-                    /*var appHtml = jc+jcr+jcscore;
-                    editor.setValue(appHtml);*/
-                    //me.moveTo('operaUserList');
-                    //保存成功将右上角和当前状态修改为编译
-                  /*  me.find('.default-btn').text("编译测试");
-                    me.find('.default-btn').attr("deployStatus","COMPILED");
-                    me.find('.back-btn').show();*/
                 } else {
-                    alert("保存失败");
+                    alert("系统异常");
                 }
             });
 		}
-
-       /* if(state == 'update')
-        {
-            //alert("up999");
-            url = "/manageUser/updateUserInfo";
-            requestUtil.post(url, data).then(function(result) {
-                if (result.code == 200) {
-                    //me.find("#ruleGroupId").val(result.data);
-                    alert("修改成功");
-                    me.moveTo('operaUserList');
-                } else {
-                    alert("修改失败");
-                }
-            });
-        }*/
 
 	};
 
     antiFraudTest.prototype.bindInitEvent = function() {
 		var me = this;
-		me.find('.default-btn').on('click', function() {
+		me.find('.submitDemo').on('click', function() {
             var x =  me.parameter.useId;
 			if (x>0){
-			    //alert("update");
                 var postStatus = "update";
                 me.postContent(postStatus);
             }else {
-			    //alert("add");
-                //var postStatus = me.find('.default-btn').attr('deployStatus');
                 var postStatus = "SAVED";
                 me.postContent(postStatus);
             }
 		});
 
-
-      /*  me.find('#sava-btn').on('click', function() {
-            var postStatus = "SAVED";
-            me.postContent(postStatus);
-        });*/
+        me.find('.testDemo').on('click', function() {
+            me.find(".taskId").val("AP6002281993061926"+Math.ceil(Math.random()*100));
+            me.find(".name").val("测试");
+            me.find(".mobile").val("15800692393");
+            me.find(".idCard").val("220204197711162428");
+            me.find(".birthday").val("1988-08-11");
+            me.find(".race").val("汉");
+            me.find(".idCardAddress").val("江西南昌");
+            me.find(".idCardValidDate").val("2001.11.12-2020.11.12");
+            me.find(".idCardLegality").val("1");
+            me.find(".thresholdsIdcard").val("0.01");
+            me.find(".thresholdsFace").val("0.01");
+            me.find(".idAttacked").val("2");
+            me.find(".domicile").val("北京北京市东城区地坛北里8楼2门201号");
+            me.find(".homeAddr").val("北京北京市东城区地坛北里8楼2门201号");
+            me.find(".companyAddr").val("北京北京市东城区地坛北里8楼2门201号");
+            me.find(".company").val("北京公共交通总公司保修分公司一厂");
+            me.find(".relativeName").val("李娜");
+            me.find(".relativeMobile").val("13466332078");
+            me.find(".nonRelativeName").val("李娜");
+            me.find(".nonRelativeMobile").val("13466332078");
+            me.find(".bankCard").val("62202110344885777");
+        });
 
         $(document).on('click', '#antiFraudDetail', function() {
             var tskid = $("#taskId").val();
+            var logid = $("#logId").val();
             var decType = $("#decType").val();
-            //alert("id:"+tskid+"-decType:"+decType);
             me.moveTo('decisionDetail',{
                 'taskId' :tskid,
+                'logId' :logid,
                 'decisionType' : decType
             });
         });
-
-       /* me.find("#antiFraudDetail").click(function() {
-            alert("详情");
-        });*/
-
-        /*me.find("#varGroupId").click(function() {
-            var url = "/manageUser/queryRoleInfo?limit=100&offset=0";
-            var isRole  =$('#isRole').val();
-            //$('#varGroupId').empty();
-            if(isRole==0) {
-                requestUtil.get(url).then(function (result) {
-                    if (result.success) {
-                        var data = result.data;
-                        for (var v in data) {
-                            $('#varGroupId').append("<option value=" + data[v].id + ">" + data[v].roleName + "-" + data[v].comments + "</option>");
-                        }
-                        $('#isRole').val(1);
-                    }
-                });
-            }
-
-        });*/
-
-
-       /* me.find("#createTestDemo").on('click', function() {
-            var demo ="{"+"\r\n";
-            var selected =me.find("#selected").find(".tyue-checkbox-input");
-            var len=0;
-            selected.each(function(){
-                len ++;
-                var ruleKey = $(this).data("rulekey");
-                if(len<selected.size())
-                {
-                    demo = demo +'"'+ruleKey+'":"",'+"\r\n";
-                }else{
-                    demo = demo +'"'+ruleKey+'":""'+"\r\n"+'}';
-                }
-
-            });
-            //editorDemo.setValue(demo);
-        });*/
 
     };
 
@@ -251,26 +174,6 @@ define([ 'util/requestUtil', 'core/base', 'util/sessionUtil', 'util/domUtil',
     antiFraudTest.prototype.initAceEditor = function() {
         var me = this;
 
-        //editor = ace.edit("aceEditor");
-        //如果有ID则填充内容
-       /* if(me.parameter.useId){
-            var url = "/manageUser/"+me.parameter.useId;
-            requestUtil.get(url,null).then(function(result) {
-                if (result.code == 200) {
-                    var userName = result.data.userName;
-                    var userPwd = result.data.userPwd;
-                    var userPhone = result.data.userPhone;
-                    var userRoleId = result.data.userRoleId;
-                    me.find(".userName").val(userName);
-                    me.find(".userPwd").val(userPwd);
-                    me.find(".varMobile").val(userPhone);
-                    me.find(".ciruserPwd").val(userPwd);
-                    me.find(".belongRole").val(userRoleId);
-                }else{
-                  
-                }
-            });
-        }*/
         
     };
 
